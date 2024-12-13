@@ -1,0 +1,34 @@
+{
+  "version": "4",
+  "remote": {
+    "https://esm.sh/react-dom@18.2.0": "0f6e9183d72c65d9873a8eae2c6c872df9b85cde317dbc0ca3d7447bab8e4ec3",
+    "https://esm.sh/react@18.2.0": "04ad7dc6d11fa27b24c136686a334ecdd19e972fae627cd98cbdc13cdac238c2",
+    "https://esm.sh/stable/react@18.2.0/denonext/react.mjs": "3c4f23bcfc53b256fcfaf6f834fa9f584c3bb7be667b2682c6cb6ba8ef88f8e6",
+    "https://esm.sh/v135/react-dom@18.2.0/denonext/react-dom.mjs": "8191fc377ea7083cca5640699c4abd75de033089eb932799e29aa04bb136838f",
+    "https://esm.sh/v135/scheduler@0.23.0/denonext/scheduler.mjs": "cdbc6d2823e2c6fffcb14501146ff2602a38c48d3c9dd9268f308e833ede2b49",
+    "https://esm.sh/v135/scheduler@0.23.2/denonext/scheduler.mjs": "dc96e5be52b14a40ce36295d938d5211e520c4da3183fe2ad4283ed103747d82"
+  },
+  "workspace": {
+    "packageJson": {
+      "dependencies": [
+        "npm:@tsparticles/react@3",
+        "npm:@types/node@^20.11.0",
+        "npm:@types/react-dom@^18.2.0",
+        "npm:@types/react@^18.2.0",
+        "npm:@vercel/analytics@^1.4.1",
+        "npm:autoprefixer@^10.4.16",
+        "npm:eslint-config-next@14.1.0",
+        "npm:eslint@^8.56.0",
+        "npm:framer-motion@11",
+        "npm:next@^14.2.20",
+        "npm:postcss@^8.4.32",
+        "npm:react-dom@18.2.0",
+        "npm:react-icons@^5.0.1",
+        "npm:react-type-animation@^3.2.0",
+        "npm:react@18.2.0",
+        "npm:tailwindcss@^3.4.0",
+        "npm:typescript@^5.3.0"
+      ]
+    }
+  }
+}

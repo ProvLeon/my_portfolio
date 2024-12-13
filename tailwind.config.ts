@@ -8,12 +8,77 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        inter: ["var(--font-inter)", "sans-serif"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: {
+          DEFAULT: "#0F1624",
+          light: "#171F38",
+          dark: "#0A0F1A",
+          card: "#212D45",
+        },
+        primary: {
+          light: "#1AC7E4",
+          DEFAULT: "#13ADC7",
+          dark: "#0D8A9E",
+        },
+        secondary: {
+          light: "#A674E8",
+          DEFAULT: "#945DD6",
+          dark: "#7A4CB8",
+        },
+        accent: {
+          light: "#FF7B4A",
+          DEFAULT: "#F46737",
+          dark: "#D65228",
+        },
+      },
+      backgroundImage: {
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
+        "gradient-conic":
+          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "gradient-primary": "linear-gradient(270deg, var(--tw-gradient-stops))",
+      },
+      animation: {
+        "float": "float 6s ease-in-out infinite",
+        "spin-slow": "spin 8s linear infinite",
+        "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+        "bounce-slow": "bounce 3s infinite",
+      },
+      keyframes: {
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+        shimmer: {
+          "100%": { transform: "translateX(100%)" },
+        },
+      },
+      boxShadow: {
+        "glow-primary": "0 0 20px rgba(19, 173, 199, 0.35)",
+        "glow-secondary": "0 0 20px rgba(148, 93, 214, 0.35)",
+        "glow-accent": "0 0 20px rgba(244, 103, 55, 0.35)",
+      },
+      transitionTimingFunction: {
+        "bounce-in": "cubic-bezier(0.68, -0.55, 0.265, 1.55)",
+      },
+      blur: {
+        "xs": "2px",
+      },
+      backdropBlur: {
+        "xs": "2px",
+      },
+      zIndex: {
+        "60": "60",
+        "70": "70",
+        "80": "80",
+        "90": "90",
+        "100": "100",
       },
     },
   },
   plugins: [],
 };
+
 export default config;

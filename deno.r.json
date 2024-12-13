@@ -1,0 +1,28 @@
+{
+  "tasks": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "imports": {
+    "@/": "./",
+    "@/components/": "./components/",
+    "@/components/Hero": "./components/Hero.tsx",
+    "@/lib/": "./lib/",
+    "@/types/": "./types/",
+    "@/types": "./types/index.ts",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "next": "npm:next@^15.1.0",
+    "framer-motion": "npm:framer-motion@^10.15.0",
+    "autoprefixer": "npm:autoprefixer@^10.4.0"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
+  }
+}
