@@ -121,7 +121,7 @@ export function FloatingElements() {
         </div>
       </motion.div>
 
-      <div className="absolute bottom-4 md:bottom-16 w-full">
+      <div className="absolute sm:bottom-4 lg:bottom-16 w-full">
         <motion.div className="space-y-12">
           {/* First Row */}
           <motion.div

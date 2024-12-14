@@ -328,7 +328,7 @@ export default function Hero() {
           document.getElementById("about")?.scrollIntoView({
             behavior: "smooth",
           })}
-        className=" md:absolute bottom-32 left-1/2 transform -translate-x-1/2 group z-100"
+        className="absolute -bottom-32 lg:bottom-32 left-1/2 transform -translate-x-1/2 group z-100"
       >
         <motion.div
           animate={{
