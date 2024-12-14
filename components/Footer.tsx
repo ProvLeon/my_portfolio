@@ -3,9 +3,12 @@
 import { motion } from "framer-motion";
 import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 import { FiArrowUpRight, FiMail, FiPhone } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa"; // Add this import
+import { navigationLinks } from "@/constants";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const whatsappNumber = "233550735691";
 
   return (
     <footer className="relative mt-32 overflow-hidden">
@@ -88,13 +91,32 @@ export default function Footer() {
                   text: "lomotey.eokantah@gmail.com",
                   href: "mailto:lomotey.eokantah@gmail.com",
                 },
+                {
+                  icon: FaWhatsapp,
+                  text: "WhatsApp Chat",
+                  href:
+                    `https://wa.me/${whatsappNumber}?text=Hi,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!`,
+                  className: "hover:text-green-300", // Custom styling for WhatsApp
+                },
               ].map((item) => (
                 <motion.li key={item.href}>
                   <a
                     href={item.href}
-                    className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
+                    target={item.icon === FaWhatsapp ? "_blank" : undefined}
+                    rel={item.icon === FaWhatsapp
+                      ? "noopener noreferrer"
+                      : undefined}
+                    className={`group flex items-center gap-2 text-gray-400 hover:text-white transition-colors ${
+                      item.className || ""
+                    }`}
                   >
-                    <item.icon className="w-4 h-4" />
+                    <item.icon
+                      className={`w-4 h-4 ${
+                        item.icon === FaWhatsapp
+                          ? "group-hover:text-green-400"
+                          : ""
+                      }`}
+                    />
                     <span>{item.text}</span>
                     <FiArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </a>
@@ -113,18 +135,13 @@ export default function Footer() {
               QUICK LINKS
             </h4>
             <ul className="space-y-4">
-              {[
-                { text: "Projects", href: "#projects" },
-                { text: "Technologies", href: "#technologies" },
-                { text: "About", href: "#about" },
-                { text: "Contact", href: "#contact" },
-              ].map((link) => (
-                <motion.li key={link.href}>
+              {navigationLinks.map((link: any) => (
+                <motion.li key={link.path}>
                   <a
-                    href={link.href}
+                    href={link.path}
                     className="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
                   >
-                    <span>{link.text}</span>
+                    <span>{link.name}</span>
                     <FiArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                   </a>
                 </motion.li>

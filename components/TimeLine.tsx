@@ -141,7 +141,7 @@ function TimelineItem({
 
                   {/* Year Display */}
                   <motion.span
-                    className="text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+                    className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                     whileHover={{ scale: 1.05 }}
                   >
                     {data.year}
@@ -158,7 +158,7 @@ function TimelineItem({
 
               {/* Content Section with improved text styling */}
               <motion.p
-                className="text-gray-300 leading-relaxed text-lg"
+                className="text-gray-300 leading-relaxed text-default sm:text-md md:text-lg"
                 whileHover={{ x: isLeft ? 5 : -5 }}
               >
                 {data.text}

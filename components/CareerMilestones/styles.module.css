@@ -1,0 +1,81 @@
+.careerMilestones {
+    @apply py-20 relative overflow-hidden cursor-default;
+}
+
+
+.header {
+    @apply text-center mb-20;
+}
+
+.iconWrapper {
+    @apply inline-block p-2 rounded-full bg-primary/10 mb-4;
+}
+
+.icon {
+    @apply w-6 h-6 text-primary;
+}
+
+.title {
+    @apply text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+}
+
+.subtitle {
+    @apply text-gray-400 max-w-2xl mx-auto;
+}
+
+.completedProjects {
+    @apply grid md:grid-cols-2 gap-8 mb-20;
+}
+
+.sectionHeader {
+    @apply flex items-center gap-3 mb-8;
+}
+
+.sectionIcon {
+    @apply w-6 h-6 text-primary;
+}
+
+.sectionTitle {
+    @apply text-2xl font-semibold text-gray-200;
+}
+
+.milestonesGrid {
+    @apply space-y-8;
+}
+
+/* Add custom animations */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Add hover effects */
+.hoverEffect {
+    @apply transition-all duration-300;
+}
+
+.hoverEffect:hover {
+    @apply transform scale-105;
+}
+
+/* Add responsive design */
+@media (max-width: 768px) {
+    .title {
+        @apply text-3xl;
+    }
+
+    .completedProjects {
+        @apply grid-cols-1;
+    }
+}

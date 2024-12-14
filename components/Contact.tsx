@@ -1,17 +1,49 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import { IconType } from "react-icons"; // Add IconType import
 import { motion } from "framer-motion";
 import { SectionHeading } from "./shared/SectionHeading";
 import { contactInfo } from "@/constants";
 import { FiMail, FiMapPin, FiPhone, FiSend } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa"; // Add this import
 import { Card } from "./shared/Card";
 
 // Add these to your environment variables (.env.local)
-const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
-const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
-const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
+// const EMAILJS_SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!;
+// const EMAILJS_TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!;
+// const EMAILJS_PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!;
 
+interface FormInputProps {
+  label: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+  disabled?: boolean;
+}
+
+interface ContactItemProps {
+  icon: IconType;
+  title: string;
+  value: string;
+  href?: string;
+  delay?: number;
+  customStyles?: {
+    icon: string;
+    background: string;
+    border: string;
+  };
+}
+
+interface AnimatedStatusMessageProps {
+  show: boolean;
+  type: "success" | "error";
+  message: string;
+}
+
+// Update the Contact component's form handling
 export default function Contact() {
   const formRef = useRef<HTMLFormElement>(null);
   const [formState, setFormState] = useState({
@@ -22,6 +54,19 @@ export default function Contact() {
     success: false,
     error: null as string | null,
   });
+
+  // Update the form handlers with proper typing
+  const handleNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, name: e.target.value }));
+  };
+
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState((prev) => ({ ...prev, email: e.target.value }));
+  };
+
+  const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFormState((prev) => ({ ...prev, message: e.target.value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -104,10 +149,26 @@ export default function Contact() {
                   value={contactInfo.phone}
                   href={`tel:${contactInfo.phone}`}
                 />
+                {/* Add WhatsApp Contact Item */}
+                <ContactItem
+                  icon={FaWhatsapp}
+                  title="WhatsApp"
+                  value="Chat with me"
+                  href={`https://wa.me/${contactInfo.whatsapp}?text=Hi,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect!`}
+                  // className="whatsapp-contact"
+                  // customStyles={{
+                  //   icon: "text-green-500 group-hover:text-green-400",
+                  //   background:
+                  //     "from-green-500/10 to-green-600/10 group-hover:from-green-500/20 group-hover:to-green-600/20",
+                  //   border:
+                  //     "border-green-500/30 group-hover:border-green-400/50",
+                  // }}
+                />
                 <ContactItem
                   icon={FiMapPin}
                   title="Location"
                   value={contactInfo.location}
+                  href={`https://www.google.com/maps/search/?api=1&query=${contactInfo.location}`}
                 />
               </div>
             </Card>
@@ -119,8 +180,7 @@ export default function Contact() {
               <FormInput
                 label="Name"
                 value={formState.name}
-                onChange={(e) =>
-                  setFormState((prev) => ({ ...prev, name: e.target.value }))}
+                onChange={handleNameChange}
                 required
                 placeholder="Your name"
                 disabled={formState.loading}
@@ -129,8 +189,7 @@ export default function Contact() {
                 label="Email"
                 type="email"
                 value={formState.email}
-                onChange={(e) =>
-                  setFormState((prev) => ({ ...prev, email: e.target.value }))}
+                onChange={handleEmailChange}
                 required
                 placeholder="your@email.com"
                 disabled={formState.loading}
@@ -141,15 +200,11 @@ export default function Contact() {
                 </label>
                 <textarea
                   value={formState.message}
-                  onChange={(e) =>
-                    setFormState((prev) => ({
-                      ...prev,
-                      message: e.target.value,
-                    }))}
+                  onChange={handleMessageChange}
                   rows={5}
                   className="w-full bg-gray-800/50 rounded-lg border border-gray-700
-                    focus:border-primary focus:ring-1 focus:ring-primary transition-colors
-                    text-white placeholder-gray-500 p-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        focus:border-primary focus:ring-1 focus:ring-primary transition-colors
+                        text-white placeholder-gray-500 p-3 disabled:opacity-50 disabled:cursor-not-allowed"
                   placeholder="Your message..."
                   required
                   disabled={formState.loading}
@@ -210,7 +265,20 @@ export default function Contact() {
   );
 }
 
-function ContactItem({ icon: Icon, title, value, href, delay = 0 }) {
+// Update ContactItem with proper typing
+function ContactItem({
+  icon: Icon,
+  title,
+  value,
+  href,
+  delay = 0,
+  customStyles = {
+    icon: "text-primary group-hover:text-primary-light",
+    background:
+      "from-primary/10 to-secondary/10 group-hover:from-primary/20 group-hover:to-secondary/20",
+    border: "border-gray-700/50 group-hover:border-primary/30",
+  },
+}: ContactItemProps) {
   const content = (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -223,12 +291,11 @@ function ContactItem({ icon: Icon, title, value, href, delay = 0 }) {
         <motion.div
           whileHover={{ rotate: [0, -10, 10, 0] }}
           transition={{ duration: 0.5 }}
-          className="p-3 rounded-xl bg-gradient-to-br from-primary/10 to-secondary/10
-                     group-hover:from-primary/20 group-hover:to-secondary/20
-                     border border-gray-700/50 group-hover:border-primary/30
-                     transition-all duration-300"
+          className={`p-3 rounded-xl bg-gradient-to-br ${customStyles.background}
+                     border ${customStyles.border}
+                     transition-all duration-300`}
         >
-          <Icon className="w-6 h-6 text-primary group-hover:text-primary-light transition-colors" />
+          <Icon className={`w-6 h-6 ${customStyles.icon} transition-colors`} />
         </motion.div>
         <div>
           <h3 className="text-gray-200 font-medium mb-1 group-hover:text-primary transition-colors">
@@ -251,16 +318,26 @@ function ContactItem({ icon: Icon, title, value, href, delay = 0 }) {
     </motion.div>
   );
 
-  return href
-    ? (
-      <a href={href} className="block">
+  if (href) {
+    return (
+      <a
+        href={href}
+        className="block"
+        target={href.startsWith("https://wa.me") ? "_blank" : undefined}
+        rel={href.startsWith("https://wa.me")
+          ? "noopener noreferrer"
+          : undefined}
+      >
         {content}
       </a>
-    )
-    : content;
+    );
+  }
+
+  return content;
 }
 
-function FormInput({ label, ...props }) {
+// Update the FormInput component with proper typing
+function FormInput({ label, ...props }: FormInputProps) {
   return (
     <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-300">
@@ -268,16 +345,18 @@ function FormInput({ label, ...props }) {
       </label>
       <input
         className="w-full bg-gray-800/30 rounded-lg border border-gray-700/50
-                   focus:border-primary focus:ring-2 focus:ring-primary/20
-                   transition-all duration-300 text-white placeholder-gray-500 p-4
-                   hover:border-gray-600/50"
+          focus:border-primary focus:ring-2 focus:ring-primary/20
+          transition-all duration-300 text-white placeholder-gray-500 p-4
+          hover:border-gray-600/50"
         {...props}
       />
     </div>
   );
 }
 
-function AnimatedStatusMessage({ show, type, message }) {
+function AnimatedStatusMessage(
+  { show, type, message }: AnimatedStatusMessageProps,
+) {
   return (
     <motion.div
       initial={{ opacity: 0, height: 0 }}

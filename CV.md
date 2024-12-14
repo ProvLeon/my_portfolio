@@ -45,8 +45,8 @@ Mpact Lane Consult, KNUST 									03/2023 – 02/2024
 ## Education
 
 ### Artificial Intelligence
-EdX (Harvard University) • Online								completed: 09/2023
-Software Engineering
+* EdX (Harvard University) • Online								completed: 09/2023
+### Software Engineering
 ALX Software Engineering School • Kenya (Online)						completed: 05/2024
 
 

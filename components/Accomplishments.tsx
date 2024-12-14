@@ -35,7 +35,7 @@ export default function Accomplishments() {
           />
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
           {data.map((card, index) => (
             <motion.div
               key={index}
@@ -103,14 +103,14 @@ function AchievementCard({ number, text, index }: AchievementCardProps) {
 
       {/* Sparkle Effect */}
       <motion.div
-        className="absolute -top-2 -right-2"
+        className="absolute -top-2 -right-1"
         initial={{ opacity: 0, scale: 0 }}
         animate={isHovered
           ? { opacity: 1, scale: 1 }
           : { opacity: 0, scale: 0 }}
         transition={{ duration: 0.2 }}
       >
-        <HiSparkles className="w-6 h-6 text-primary/60" />
+        <HiSparkles className="w-8 h-8 text-primary/60" />
       </motion.div>
 
       {/* Counter Animation */}
@@ -120,7 +120,7 @@ function AchievementCard({ number, text, index }: AchievementCardProps) {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <div className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+        <div className="bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent text-center md:text-left">
           <CountUp
             end={number}
             duration={2}
@@ -133,7 +133,7 @@ function AchievementCard({ number, text, index }: AchievementCardProps) {
 
       {/* Achievement Text */}
       <motion.p
-        className="text-gray-300 text-sm md:text-base font-medium"
+        className="text-gray-300 text-sm md:text-base font-medium text-center md:text-left"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.2 }}

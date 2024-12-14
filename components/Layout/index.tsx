@@ -1,5 +1,4 @@
 "use client";
-// components/Layout/index.tsx
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -16,35 +15,54 @@ import Timeline from "@/components/TimeLine";
 import Accomplishments from "@/components/Accomplishments";
 import Contact from "@/components/Contact";
 import { LoadingSpinner } from "@/components/ui/LoadingSpinner";
+import { Suspense } from "react";
+import { logo } from "@/constants";
+import CareerMilestones from "../CareerMilestones";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface LayoutProps {
+  _children?: React.ReactNode;
+}
+
+export default function Layout({ _children }: LayoutProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingSpinnerVisible, setIsLoadingSpinnerVisible] = useState(false);
 
   useEffect(() => {
-    // Simulate loading time and resources
+    // Show enhanced loading spinner after initial load
     const timer = setTimeout(() => {
+      setIsLoadingSpinnerVisible(true);
+    }, 1000); // Show enhanced spinner after 1 second if still loading
+
+    // Simulate loading time and resources
+    const loadTimer = setTimeout(() => {
       setIsLoading(false);
       document.body.classList.remove("overflow-hidden");
-    }, 2000); // Adjust timing as needed
+    }, 2000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(loadTimer);
+    };
   }, []);
 
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isLoading
-          ? (
-            <motion.div
-              key="loader"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
-            >
-              <LoadingScreen />
-            </motion.div>
-          )
-          : (
+    <AnimatePresence mode="wait">
+      {isLoading
+        ? (
+          <motion.div
+            key="loader"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-background"
+          >
+            {isLoadingSpinnerVisible ? <LoadingSpinner /> : (
+              // Initial simple loading state
+              <Loading />
+            )}
+          </motion.div>
+        )
+        : (
+          <Suspense fallback={<Loading />}>
             <motion.div
               key="content"
               initial={{ opacity: 0 }}
@@ -83,9 +101,22 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       <Technologies />
                     </section>
 
-                    <section id="timeline" className="py-20">
-                      <Timeline />
-                    </section>
+                    {/* Combined Journey Section */}
+                    <div className="relative overflow-hidden">
+                      {/* Shared Background Effect */}
+                      <div className="absolute inset-0 -z-10">
+                        <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] animate-pulse-slow" />
+                        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] animate-pulse-slow delay-1000" />
+                      </div>
+
+                      <section id="timeline" className="py-20">
+                        <Timeline />
+                      </section>
+
+                      <section id="milestones" className="py-20">
+                        <CareerMilestones />
+                      </section>
+                    </div>
 
                     <section
                       id="accomplishments"
@@ -94,7 +125,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       <Accomplishments />
                     </section>
 
-                    <section id="contact" className="py-20">
+                    <section id="contact" className="py-10 md:py-20">
                       <Contact />
                     </section>
                   </div>
@@ -104,9 +135,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </main>
               </PageTransition>
             </motion.div>
-          )}
-      </AnimatePresence>
-    </>
+          </Suspense>
+        )}
+    </AnimatePresence>
   );
 }
 
@@ -121,7 +152,7 @@ function LoadingScreen() {
       >
         {/* Logo or Name */}
         <motion.h1
-          className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent"
+          className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent z-100"
           animate={{
             opacity: [0.5, 1, 0.5],
           }}
@@ -157,6 +188,33 @@ function LoadingScreen() {
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[100px] animate-pulse-slow" />
         <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-[100px] animate-pulse-slow delay-500" />
+      </div>
+    </div>
+  );
+}
+
+function Loading() {
+  return (
+    <div className="fixed inset-0 bg-background flex items-center justify-center">
+      <div className="text-center">
+        {/* Simple Initial Loading State */}
+        <div className="text-center space-y-6">
+          <div className="text-5xl md:text-9xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            {logo}
+          </div>
+          <div className="text-4xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+            Emmanuel Okantah Lomotey
+          </div>
+          <div className="flex justify-center gap-2">
+            {[...Array(3)].map((_, i) => (
+              <div
+                key={i}
+                className="w-3 h-3 rounded-full bg-primary animate-bounce"
+                style={{ animationDelay: `${i * 0.15}s` }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

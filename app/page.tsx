@@ -1,5 +1,8 @@
 // app/page.tsx
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import Loading from "./loading";
+
 // import dynamic from "next/dynamic";
 // import PageTransition from "@/components/PageTransition";
 // import FloatingNav from "@/components/FloatingNav";
@@ -71,6 +74,8 @@ export default function Home() {
     //     <Footer />
     //   </main>
     // </PageTransition>
-    <Layout />
+    <Suspense fallback={<Loading />}>
+      <Layout />
+    </Suspense>
   );
 }

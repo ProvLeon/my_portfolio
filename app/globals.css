@@ -6,6 +6,9 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 15, 22, 36;
     --background-end-rgb: 15, 22, 36;
+    --color-primary-rgb: 59, 130, 246;
+    --color-secondary-rgb: 139, 92, 246;
+    --color-accent-rgb: 249, 168, 212;
 }
 
 @layer base {
@@ -47,8 +50,26 @@
 
 /* Smooth scrolling with enhanced performance */
 @layer utilities {
+    .glassmorphism {
+        @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-xl;
+    }
+
+
     .text-gradient {
         @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
+    }
+
+    .glow {
+        @apply relative;
+    }
+
+    .glow::after {
+        @apply content-[''] absolute inset-0 -z-10 blur-xl opacity-50;
+        background: inherit;
+    }
+
+    .animate-float {
+        animation: float 6s ease-in-out infinite;
     }
 
 
@@ -113,6 +134,18 @@
 
     .bg-gradient-radial {
         background-image: radial-gradient(var(--tw-gradient-stops));
+    }
+
+    .hover-glow {
+        @apply relative;
+    }
+
+    .hover-glow::after {
+        @apply content-[''] absolute inset-0 opacity-0 transition-opacity duration-300 bg-gradient-to-r from-primary/20 via-transparent to-secondary/20 blur-xl;
+    }
+
+    .hover-glow:hover::after {
+        @apply opacity-100;
     }
 }
 
@@ -310,4 +343,53 @@
 
 .bg-gradient-conic {
     background-image: conic-gradient(var(--tw-gradient-stops));
+}
+
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.float {
+    animation: float 6s ease-in-out infinite;
+}
+
+
+
+.bg-grid-pattern {
+    background-image: linear-gradient(to right, rgb(255 255 255 / 0.1) 1px, transparent 1px),
+        linear-gradient(to bottom, rgb(255 255 255 / 0.1) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+
+@keyframes pulse-slow {
+
+    0%,
+    100% {
+        opacity: 0.3;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-pulse-slow {
+    animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.bg-grid-pattern {
+    background-image: radial-gradient(circle at center,
+            rgba(var(--color-primary-rgb), 0.1) 1px,
+            transparent 1px);
+    background-size: 24px 24px;
 }

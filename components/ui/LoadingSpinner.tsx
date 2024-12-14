@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 
-export function LoadingSpinner() {
+function LoadingSpinner() {
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="relative w-64 h-64">
@@ -128,7 +128,7 @@ export function LoadingSpinner() {
 }
 
 // Alternative Version with Different Animation
-export function LoadingSpinnerAlt() {
+function LoadingSpinnerAlt() {
   return (
     <div className="fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50">
       <div className="relative">
@@ -224,3 +224,5 @@ export function LoadingSpinnerAlt() {
     </div>
   );
 }
+
+export { LoadingSpinner, LoadingSpinnerAlt };

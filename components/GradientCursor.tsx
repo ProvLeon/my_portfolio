@@ -36,7 +36,7 @@ export default function GradientCursor() {
       {cursorElements.map((pos, i) => (
         <motion.div
           key={i}
-          className="fixed pointer-events-none z-50 mix-blend-difference"
+          className="fixed pointer-events-none z-100 mix-blend-difference"
           style={{
             left: pos.x - 4,
             top: pos.y - 4,

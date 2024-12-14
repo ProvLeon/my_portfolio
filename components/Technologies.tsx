@@ -7,10 +7,23 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/shared/Card";
 import { iconMap } from "@/constants/icons";
 import { HiChip, HiCode, HiColorSwatch, HiDatabase } from "react-icons/hi";
+import { IconType } from "react-icons";
+import {
+  ExperienceSectionProps,
+  SkillItemProps,
+  TechCategoryProps,
+} from "@/types";
 
 export default function Technologies() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  const sectionIcons: Record<string, IconType> = {
+    frontend: HiCode,
+    backend: HiDatabase,
+    tools: HiChip,
+    design: HiColorSwatch,
+  };
 
   // Enhanced animations
   const containerAnimation = {
@@ -24,15 +37,11 @@ export default function Technologies() {
     },
   };
 
-  const sectionIcons = {
-    frontend: HiCode,
-    backend: HiDatabase,
-    tools: HiChip,
-    design: HiColorSwatch,
-  };
-
   return (
-    <section id="tech" className="py-24 relative overflow-hidden cursor-default">
+    <section
+      id="tech"
+      className="py-24 relative overflow-hidden cursor-default"
+    >
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-conic from-primary/10 via-secondary/10 to-accent/10 animate-spin-slow opacity-30" />
@@ -81,7 +90,9 @@ export default function Technologies() {
   );
 }
 
-function TechCategory({ category, title, skills, index, Icon }) {
+function TechCategory(
+  { category, title, skills, index, Icon }: TechCategoryProps,
+) {
   return (
     <motion.div
       variants={{
@@ -130,7 +141,7 @@ function TechCategory({ category, title, skills, index, Icon }) {
 }
 
 // Enhanced SkillItem component with better glow effects
-function SkillItem({ skill, delay }) {
+function SkillItem({ skill, delay }: SkillItemProps) {
   const Icon = iconMap[skill];
 
   return (
@@ -184,7 +195,7 @@ function SkillItem({ skill, delay }) {
 }
 
 // Enhanced ExperienceSection with better animations
-function ExperienceSection({ isInView }) {
+function ExperienceSection({ isInView }: ExperienceSectionProps) {
   const experiences = [
     {
       skill: "Frontend Development",
@@ -201,7 +212,7 @@ function ExperienceSection({ isInView }) {
       years: 1.5,
       color: "from-accent via-accent/80 to-accent/50",
     },
-  ];
+  ] as const;
 
   return (
     <motion.div

@@ -33,9 +33,10 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
+import { Project } from "@/types";
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<any>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
     <section id="projects" className="py-20 relative overflow-hidden">
@@ -77,7 +78,7 @@ export default function Projects() {
 }
 
 interface ProjectCardProps {
-  project: any;
+  project: Project;
   index: number;
   onViewDetails: () => void;
 }
@@ -185,7 +186,7 @@ function ProjectCard({ project, index, onViewDetails }: ProjectCardProps) {
 }
 
 interface ProjectModalProps {
-  project: any;
+  project: Project;
   onClose: () => void;
 }
 
@@ -272,7 +273,7 @@ function TabButton({ children, active, onClick, icon: Icon }: TabButtonProps) {
   );
 }
 
-function PreviewTab({ project }) {
+function PreviewTab({ project }: { project: Project }) {
   return (
     <div className="h-full">
       <div className="relative w-full h-full min-h-[300px]">
@@ -309,7 +310,7 @@ function PreviewTab({ project }) {
   );
 }
 
-function DetailsTab({ project }) {
+function DetailsTab({ project }: { project: Project }) {
   return (
     <div className="p-6 md:p-8 space-y-8">
       {/* Project Header */}
@@ -405,7 +406,7 @@ function DetailsTab({ project }) {
 
 // Helper function to get icon for tech stack tags
 function getTagIcon(tag: string) {
-  const iconMap = {
+  const iconMap: Record<string, JSX.Element> = {
     React: <SiReact className="w-4 h-4" />,
     "Next.js": <SiNextdotjs className="w-4 h-4" />,
     TypeScript: <SiTypescript className="w-4 h-4" />,
@@ -423,12 +424,19 @@ function getTagIcon(tag: string) {
     // Add more mappings as needed
   };
 
-  // Handle case-insensitive matching
-  const normalizedTag = Object.keys(iconMap).find(
-    (key) => key.toLowerCase() === tag.toLowerCase(),
+  // Create an array of tag mappings for case-insensitive comparison
+  const tagMappings = Object.entries(iconMap).map(([key, value]) => ({
+    key,
+    value,
+    normalized: key.toLowerCase(),
+  }));
+
+  // Find matching tag
+  const match = tagMappings.find(
+    (mapping) => mapping.normalized === tag.toLowerCase(),
   );
 
-  return normalizedTag ? iconMap[normalizedTag] : null;
+  return match ? match.value : null;
 }
 
 interface ProjectLinkProps {

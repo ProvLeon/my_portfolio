@@ -6,6 +6,7 @@ module.exports = {
   },
   experimental: {
     optimizeCss: true,
+     serverActions: true,
   },
   webpack: (config) => {
     config.module.rules.push({
