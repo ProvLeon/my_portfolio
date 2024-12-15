@@ -1,6 +1,7 @@
 import { AiFillGithub, AiFillInstagram, AiFillLinkedin } from "react-icons/ai";
 import type {
   Achievement,
+  Experiences,
   HeadingContent,
   NavigationLink,
   Project,
@@ -411,6 +412,33 @@ export const techStack: TechStack = {
     ],
   },
 } as const;
+
+export const experiencesDetails: Experiences[] = [
+  {
+    skill: "Frontend Development",
+    years: 3,
+    color:
+      "bg-gradient-to-r from-[#13ADC7] via-[#15B8D4] to-[#18C3E1]/50 opacity-90", // Professional blue gradient
+  },
+  {
+    skill: "Backend Development",
+    years: 2,
+    color:
+      "bg-gradient-to-r from-[#945DD6] via-[#A66DE8] to-[#B87DFA]/50 opacity-90", // Rich purple gradient
+  },
+  {
+    skill: "DevOps & Cloud",
+    years: 1.5,
+    color:
+      "bg-gradient-to-r from-[#F46737] via-[#F87D54] to-[#FC9371]/50 opacity-90", // Warm orange gradient
+  },
+  {
+    skill: "AI & ML",
+    years: 1,
+    color:
+      "bg-gradient-to-r from-[#3B82F6] via-[#60A5FA] to-[#93C5FD]/50 opacity-90", // Modern blue gradient
+  },
+] as const;
 
 // Contact information
 export const contactInfo = {

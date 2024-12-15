@@ -70,6 +70,12 @@ export interface TechStack {
   [key: string]: TechSkill;
 }
 
+export interface Experiences {
+  skill: string;
+  years: number;
+  color: string;
+}
+
 export interface TechCategoryProps {
   category: string;
   title: string;

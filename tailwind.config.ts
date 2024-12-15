@@ -6,6 +6,27 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "bg-gradient-to-r",
+    // Primary (Blue)
+    "from-[#13ADC7]",
+    "via-[#15B8D4]",
+    "to-[#18C3E1]/50",
+    // Secondary (Purple)
+    "from-[#945DD6]",
+    "via-[#A66DE8]",
+    "to-[#B87DFA]/50",
+    // Accent (Orange)
+    "from-[#F46737]",
+    "via-[#F87D54]",
+    "to-[#FC9371]/50",
+    // AI/ML (Blue)
+    "from-[#3B82F6]",
+    "via-[#60A5FA]",
+    "to-[#93C5FD]/50",
+    // Opacity
+    "opacity-90",
+  ],
   theme: {
     extend: {
       fontFamily: {

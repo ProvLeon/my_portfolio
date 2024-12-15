@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-import { techStack } from "@/constants";
+import { experiencesDetails, techStack } from "@/constants";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/shared/Card";
 import { iconMap } from "@/constants/icons";
@@ -196,23 +196,7 @@ function SkillItem({ skill, delay }: SkillItemProps) {
 
 // Enhanced ExperienceSection with better animations
 function ExperienceSection({ isInView }: ExperienceSectionProps) {
-  const experiences = [
-    {
-      skill: "Frontend Development",
-      years: 3,
-      color: "from-primary via-primary/80 to-primary/50",
-    },
-    {
-      skill: "Backend Development",
-      years: 2,
-      color: "from-secondary via-secondary/80 to-secondary/50",
-    },
-    {
-      skill: "DevOps & Cloud",
-      years: 1.5,
-      color: "from-accent via-accent/80 to-accent/50",
-    },
-  ] as const;
+  const experiences = experiencesDetails;
 
   return (
     <motion.div
@@ -246,7 +230,7 @@ function ExperienceSection({ isInView }: ExperienceSectionProps) {
                 </motion.span>
               </div>
 
-              <div className="h-3 bg-gray-800/50 rounded-full overflow-hidden backdrop-blur-sm">
+              <div className="h-2 bg-gray-800/50 rounded-full overflow-hidden backdrop-blur-sm">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={isInView
@@ -257,7 +241,7 @@ function ExperienceSection({ isInView }: ExperienceSectionProps) {
                     delay: 0.5 + index * 0.2,
                     ease: [0.33, 1, 0.68, 1],
                   }}
-                  className={`relative h-full rounded-full bg-gradient-to-r ${item.color}`}
+                  className={`relative h-full rounded-full ${item.color}`}
                 >
                   {/* Animated Shine Effect */}
                   <motion.div
@@ -284,15 +268,3 @@ function ExperienceSection({ isInView }: ExperienceSectionProps) {
     </motion.div>
   );
 }
-// Helper function to get category icons
-// function getCategoryIcon(category: string) {
-//   const icons = {
-//     frontend: <SiReact className="w-6 h-6 text-primary" />,
-//     backend: <SiServerless className="w-6 h-6 text-primary" />,
-//     tools: <SiGithub className="w-6 h-6 text-primary" />,
-//     design: <SiFigma className="w-6 h-6 text-primary" />,
-//   };
-
-//   return icons[category as keyof typeof icons] ||
-//     <HiOutlineGlobeAlt className="w-6 h-6 text-primary" />;
-// }
