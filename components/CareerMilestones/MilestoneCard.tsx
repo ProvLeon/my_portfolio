@@ -27,7 +27,7 @@ export function MilestoneCard({ milestone, onClick }: MilestoneCardProps) {
       {/* Content */}
       <div className="flex flex-col gap-4">
         <div>
-          <h4 className="text-xl font-semibold text-primary group-hover:text-primary-light
+          <h4 className="text-md md:text-xl font-semibold text-primary group-hover:text-primary-light
                        transition-colors flex items-center gap-2">
             {milestone.project}
             {milestone.link && (
@@ -48,7 +48,7 @@ export function MilestoneCard({ milestone, onClick }: MilestoneCardProps) {
           </span>
         </div>
 
-        <p className="text-gray-300 leading-relaxed">
+        <p className="text-sm md:text-md lg:text-lg text-gray-300 leading-relaxed">
           {milestone.description}
         </p>
 
@@ -61,7 +61,7 @@ export function MilestoneCard({ milestone, onClick }: MilestoneCardProps) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1 }}
-                className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm
+                className="px-3 py-1 rounded-full bg-primary/10 text-primary text-xs md:text-sm lg:text-md font-medium
                          group-hover:bg-primary/20 transition-colors"
               >
                 {metric}

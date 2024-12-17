@@ -28,11 +28,13 @@ export function OngoingProjects({ projects }: OngoingProjectsProps) {
             className="p-6 rounded-xl bg-gradient-to-br from-gray-800/50 to-gray-900/50
                      border border-gray-700/30 shadow-lg relative overflow-hidden"
           >
-            <h4 className="text-xl font-semibold text-secondary mb-3">
+            <h4 className="text-lg md:text-xl font-semibold text-secondary mb-3">
               {project.project}
             </h4>
 
-            <p className="text-gray-300 mb-4">{project.description}</p>
+            <p className="text-sm md:text-md lg:text-lg text-gray-300 mb-4">
+              {project.description}
+            </p>
 
             {/* Progress Bar */}
             {project.progress && (

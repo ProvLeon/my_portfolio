@@ -172,7 +172,7 @@ function SkillItem({ skill, delay }: SkillItemProps) {
           </div>
         )}
 
-        <span className="text-sm font-medium text-gray-300 group-hover/skill:text-white transition-colors duration-300">
+        <span className="text-xs md:text-sm font-medium text-gray-300 group-hover/skill:text-white transition-colors duration-300">
           {skill}
         </span>
 
@@ -217,7 +217,7 @@ function ExperienceSection({ isInView }: ExperienceSectionProps) {
           {experiences.map((item, index) => (
             <div key={item.skill} className="relative">
               <div className="flex justify-between items-center mb-3">
-                <h5 className="text-lg font-medium text-gray-200">
+                <h5 className="sm:text-md md:text-lg font-medium text-gray-200">
                   {item.skill}
                 </h5>
                 <motion.span

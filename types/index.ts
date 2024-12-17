@@ -121,3 +121,18 @@ export interface CareerMilestones {
   ongoing: OngoingProject[];
   futureGoals: string[];
 }
+
+export interface TimelineItemData {
+  year: number | string;
+  text: string;
+  highlight?: string[];
+}
+
+export interface TimelineItemProps {
+  data: TimelineItemData[];
+  isActive: boolean;
+  onActivate: () => void;
+  isLeft: boolean;
+  index: number;
+  totalItems: number;
+}

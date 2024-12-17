@@ -38,7 +38,7 @@ export function FutureGoals({ goals }: FutureGoalsProps) {
               >
                 <span className="text-accent">→</span>
               </motion.div>
-              <p className="text-gray-300 group-hover:text-white transition-colors">
+              <p className="text-sm md:text-md lg:text-lg text-gray-300 group-hover:text-white transition-colors">
                 {goal}
               </p>
             </div>

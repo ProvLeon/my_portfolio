@@ -6,6 +6,7 @@ import { TimeLineData } from "@/constants";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/shared/Card";
 import { HiOutlineCalendar } from "react-icons/hi";
+import { TimelineItemProps } from "@/types";
 
 export default function Timeline() {
   const [activeItem, setActiveItem] = useState(0);
@@ -43,7 +44,7 @@ export default function Timeline() {
               initial={{ height: 0 }}
               whileInView={{ height: "100%" }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent"
+              className="hidden md:block absolute left-1/2 transform -translate-x-1/3 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent ml-2"
               style={{
                 backgroundSize: "200% 200%",
                 animation: "gradient 6s linear infinite",
@@ -69,15 +70,6 @@ export default function Timeline() {
       </div>
     </section>
   );
-}
-
-interface TimelineItemProps {
-  data: typeof TimeLineData[0];
-  isActive: boolean;
-  onActivate: () => void;
-  isLeft: boolean;
-  index: number;
-  totalItems: number;
 }
 
 function TimelineItem({
@@ -217,8 +209,8 @@ function TimelineItem({
           className={`
             w-5 h-5 rounded-full
             border-2 border-primary
-            absolute top-1/2 left-1/2
-            transform -translate-x-1/2 -translate-y-1/2
+            absolute top-1/2 left-1/3
+            transform -translate-x-1/3 -translate-y-1/2
             transition-all duration-300
             ${isActive ? "shadow-lg shadow-primary/30" : ""}
             hover:border-secondary
