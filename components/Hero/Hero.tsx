@@ -3,16 +3,16 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { useMousePosition } from "@/hooks/useMousePosition";
+// import { useMousePosition } from "@/hooks/useMousePosition";
 import { useParallax } from "@/hooks/useParallax";
 import { useTextScramble } from "@/hooks/useTextScramble";
-import { IconType } from "react-icons";
+// import { IconType } from "react-icons";
 
 import {
   AnimatePresence,
   motion,
   useScroll,
-  useSpring,
+  // useSpring,
   useTransform,
 } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
@@ -38,7 +38,7 @@ export default function Hero() {
   const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const [isDownloading, setIsDownloading] = useState(false);
-  const parallax = useParallax(20);
+  // const parallax = useParallax(20);
 
   const handleDownloadCV = async () => {
     setIsDownloading(true);
@@ -455,7 +455,7 @@ const NameSection = () => {
 
         {/* Main Name */}
         <motion.div
-          className="relative inline-block w-full md:ml-12"
+          className="relative inline-block w-full lg:ml-12"
           onHoverStart={() => setIsHovered(true)}
           onHoverEnd={() => setIsHovered(false)}
         >
@@ -695,7 +695,7 @@ const GlowingBorder = ({ children }: { children: React.ReactNode }) => (
 const GreetingAnimation = ({ className }: { className?: string }) => {
   return (
     <motion.div
-      className={`absolute -top-12 left-1/3 md:transform md:-translate-x-1/2 md:left-auto md:-top-14 md:right-0 ${className}`}
+      className={`absolute -top-12 left-1/3 transform lg:-translate-x-1/2 md:-translate-x-1/2 lg:left-auto lg:-top-14 lg:right-0 ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
