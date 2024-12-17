@@ -22,7 +22,7 @@ export default function Timeline() {
   return (
     <section
       id="about"
-      className="py-20 relative overflow-hidden cursor-default"
+      className="py-10 relative overflow-hidden cursor-default"
     >
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10">

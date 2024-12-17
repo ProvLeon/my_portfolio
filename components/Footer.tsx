@@ -26,7 +26,7 @@ export default function Footer() {
             className="lg:col-span-2"
           >
             <h3 className="text-2xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-4">
-              Emmanuel Lomotey
+              Emmanuel Okantah Lomotey
             </h3>
             <p className="text-gray-400 mb-6 max-w-md">
               Innovating one project at a time to transform the world through
@@ -159,7 +159,7 @@ export default function Footer() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Emmanuel Lomotey. All rights reserved.
+              © {currentYear} Emmanuel Okantah Lomotey. All rights reserved.
             </p>
             <motion.a
               href="#top"

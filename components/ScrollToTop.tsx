@@ -87,8 +87,8 @@ export default function ScrollToTop() {
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="absolute -top-8 left-1/2 -translate-x-1/2
-                       text-sm text-white bg-gray-900/80
+            className="absolute -top-8 -left-5 -translate-x-1/2
+                       text-sm text-gray-400 bg-gray-900/80
                        px-2 py-1 rounded-md whitespace-nowrap
                        backdrop-blur-sm"
           >
