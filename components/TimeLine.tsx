@@ -37,13 +37,13 @@ export default function Timeline() {
           />
 
           {/* Timeline Container */}
-          <div className="relative">
+          <div className="relative mt-12">
             {/* Animated Vertical Line */}
             <motion.div
               initial={{ height: 0 }}
               whileInView={{ height: "100%" }}
               transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent"
+              className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-gradient-to-b from-primary via-secondary to-accent"
               style={{
                 backgroundSize: "200% 200%",
                 animation: "gradient 6s linear infinite",
@@ -51,7 +51,7 @@ export default function Timeline() {
             />
 
             {/* Timeline Items */}
-            <div className="space-y-16 relative">
+            <div className="space-y-8 md:space-y-16 relative">
               {TimeLineData.map((item, index) => (
                 <TimelineItem
                   key={index}
@@ -89,6 +89,7 @@ function TimelineItem({
   totalItems,
 }: TimelineItemProps) {
   const progress = index / (totalItems - 1);
+  const isLast = index === totalItems - 1;
   const _gradientColor = `hsl(${progress * 200}, 70%, 50%)`;
 
   return (
@@ -97,12 +98,46 @@ function TimelineItem({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      className={`flex items-center ${
-        isLeft ? "flex-row" : "flex-row-reverse"
+      className={`flex flex-col md:flex-row items-center ${
+        isLeft ? "md:flex-row" : "md:flex-row-reverse"
       }`}
     >
+      {/* Mobile Timeline Connector */}
+      <div className="md:hidden absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/50 via-secondary/50 to-accent/50">
+        {/* Top connector - hide for first item */}
+        {index !== 0 && (
+          <div className="absolute top-0 h-1/2 w-full bg-gradient-to-b from-transparent to-primary/50" />
+        )}
+        {/* Bottom connector - hide for last item */}
+        {!isLast && (
+          <div className="absolute bottom-0 h-1/2 w-full bg-gradient-to-b from-primary/50 to-transparent" />
+        )}
+      </div>
+
+      {/* Mobile Timeline Dot */}
+      <div className="md:hidden absolute left-8 top-12 transform -translate-x-1/2">
+        <motion.div
+          whileHover={{ scale: 1.2 }}
+          className={`w-4 h-4 rounded-full ${
+            isActive ? "bg-primary shadow-lg shadow-primary/30" : "bg-gray-700"
+          } border-2 border-primary/50 transition-all duration-300`}
+        >
+          {isActive && (
+            <motion.div
+              className="absolute -inset-1 rounded-full border border-primary/30"
+              animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            />
+          )}
+        </motion.div>
+      </div>
+
       {/* Content */}
-      <div className={`w-1/2 ${isLeft ? "pr-12" : "pl-12"}`}>
+      <div
+        className={`w-full md:w-1/2 pl-16 md:pl-0 ${
+          isLeft ? "md:pr-12" : "md:pl-12"
+        } mb-6 md:mb-0`}
+      >
         <motion.div
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300 }}
@@ -141,16 +176,16 @@ function TimelineItem({
 
                   {/* Year Display */}
                   <motion.span
-                    className="text-2xl md:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+                    className="text-xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
                     whileHover={{ scale: 1.05 }}
                   >
                     {data.year}
                   </motion.span>
                 </div>
 
-                {/* Gradient Line */}
+                {/* Gradient Line - Desktop only */}
                 <motion.div
-                  className="flex-1 h-0.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-transparent"
+                  className="hidden md:block flex-1 h-0.5 rounded-full bg-gradient-to-r from-primary/20 via-secondary/20 to-transparent"
                   whileHover={{ scaleX: 1.05 }}
                   transition={{ duration: 0.2 }}
                 />
@@ -158,7 +193,7 @@ function TimelineItem({
 
               {/* Content Section with improved text styling */}
               <motion.p
-                className="text-gray-300 leading-relaxed text-default sm:text-md md:text-lg"
+                className="text-gray-300 leading-relaxed text-sm md:text-base lg:text-lg"
                 whileHover={{ x: isLeft ? 5 : -5 }}
               >
                 {data.text}
@@ -168,9 +203,9 @@ function TimelineItem({
         </motion.div>
       </div>
 
-      {/* Center Point with improved styling */}
+      {/* Desktop Center Point with improved styling */}
       <motion.div
-        className="relative"
+        className="hidden md:block relative"
         whileHover={{ scale: 1.2 }}
         transition={{ type: "spring", stiffness: 300 }}
       >
@@ -221,8 +256,8 @@ function TimelineItem({
           )}
         </motion.div>
       </motion.div>
-
-      <div className="w-1/2" />
+      {/* Desktop Spacer */}
+      <div className="hidden md:block md:w-1/2" />
     </motion.div>
   );
 }
