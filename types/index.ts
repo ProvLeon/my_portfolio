@@ -129,7 +129,7 @@ export interface TimelineItemData {
 }
 
 export interface TimelineItemProps {
-  data: TimelineItemData[];
+  data: TimelineItemData;
   isActive: boolean;
   onActivate: () => void;
   isLeft: boolean;
