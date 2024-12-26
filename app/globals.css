@@ -424,3 +424,53 @@
         transform: translateX(100%);
     }
 }
+
+/* Add to globals.css */
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.seasonal-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+
+/* Add to globals.css */
+.snowflake-crystal {
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+}
+
+.winter-atmosphere {
+    background: linear-gradient(to bottom,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent);
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        opacity: 0.9;
+        transform: scale(1);
+        filter: brightness(0.2);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: scale(0.95);
+        filter: brightness(0.1);
+    }
+}
+
+.snowflake-sparkle {
+    animation: sparkle 2s ease-in-out infinite;
+}
