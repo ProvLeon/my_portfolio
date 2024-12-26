@@ -193,12 +193,12 @@ export function Snow() {
       ))}
 
       {/* Enhanced atmosphere effects */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0"> */}
         {/* Depth fog effect */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent winter-atmosphere" />
+        {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent winter-atmosphere" /> */}
         {/* Subtle blue tint for winter atmosphere */}
-        <div className="absolute inset-0 bg-blue-500/5 mix-blend-overlay" />
-      </div>
+        {/* <div className="absolute inset-0 bg-blue-500/5 mix-blend-overlay" /> */}
+      {/* </div> */}
 
       <style jsx>
         {`
