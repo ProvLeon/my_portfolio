@@ -3,7 +3,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollIndicator from "@/components/ScrollIndicator";
-import SeasonalEffects from "@/components/SeasonalEffects";
+// import SeasonalEffects from "@/components/SeasonalEffects";
 import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
@@ -70,7 +70,7 @@ export default function RootLayout({
     <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <body className="font-inter text-white antialiased relative">
         {/* Seasonal effects */}
-        <SeasonalEffects />
+        {/* <SeasonalEffects /> */}
         {/* Background layers */}
         <div className="fixed inset-0 -z-20">
           {/* Gradient background */}
