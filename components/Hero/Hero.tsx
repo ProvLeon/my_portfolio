@@ -35,7 +35,8 @@ const COLORS = {
 
 export default function Hero() {
   const { scrollYProgress } = useScroll();
-  const y = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 200]); // Renamed from y
+  const imageParallaxY = useTransform(scrollYProgress, [0, 1], [0, -100]); // Slower scroll for image
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const [isDownloading, setIsDownloading] = useState(false);
   // const parallax = useParallax(20);
@@ -78,7 +79,7 @@ export default function Hero() {
 
       {/* Main Content */}
       <motion.div
-        style={{ y, opacity }}
+        style={{ y: textY, opacity }}
         className="container mx-auto px-4 py-20 lg:py-32 z-10 relative"
       >
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-20">
@@ -246,6 +247,7 @@ export default function Hero() {
                 damping: 20,
               }}
               whileHover={{ scale: 1.05 }}
+              style={{ y: imageParallaxY }} // Apply parallax to the image container
               className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96"
             >
               {/* Animated Background Gradient */}

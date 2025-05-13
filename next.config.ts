@@ -1,12 +1,13 @@
 // next.config.js
-module.exports = {
+
+const nextConfig: NextConfig = {
   images: {
     domains: ['your-domain.com'],
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {
     optimizeCss: true,
-     serverActions: true,
+    serverActions: true,
   },
   webpack: (config) => {
     config.module.rules.push({
@@ -16,3 +17,5 @@ module.exports = {
     return config;
   },
 }
+
+export default nextConfig;

@@ -208,6 +208,73 @@ export const projects: Project[] = [
       "Managing bot resource consumption",
     ],
   },
+  {
+    id: 5,
+    title: "Agrinvest",
+    description:
+      "Dedicated to scaling up agricultural productivity through empowering smallholder farmers, Agrinvest boosts productivity and meets the growing demand for quality grains, cereals, and vegetables across Ghana.",
+    image: "/images/agrinvest.jpg",
+    tags: ["Next.js", "Tailwind CSS", "Lucide React", "Framer Motion"],
+    source: "https://github.com/ProvLeon/agrinvest_web",
+    visit: "https://agrinvest-web.onrender.com",
+    category: "Investment, Agriculture",
+    features: [
+      "User registration and profiles for investors and farmers",
+      "Detailed listings of available agricultural investment packages",
+      "Secure online payment gateway integration",
+      "Investor dashboard for portfolio management and tracking returns",
+      "Farm progress tracking and updates for investors",
+      "Educational resources and news section on agriculture",
+    ],
+    implementation: `
+      Frontend built with Next.js for a fast, server-rendered React application.
+      Styled using Tailwind CSS, with icons from Lucide React for a clean and modern UI.
+      Animations and transitions powered by Framer Motion to enhance user experience.
+      (Backend details can be generic if not specified, e.g., "Connected to a robust backend API for data management and user authentication.")
+    `,
+    challenges: [
+      "Ensuring security for financial transactions and user data",
+      "Designing an intuitive user interface for both investors and farmers",
+      "Integrating with various payment gateways and financial systems",
+      "Providing reliable and transparent farm progress reporting",
+      "Scaling the platform to accommodate a growing number of users and projects",
+    ],
+  },
+  {
+    id: 6,
+    title: "Riel Films",
+    description:
+      "Riel Films is a beacon for African cinema, creating authentic African stories through documentary film. It aims to showcase the richness and diversity of African culture, traditions, and contemporary life to global audiences, collaborating with filmmakers across the continent. Additionally, Riel Films is dedicated to fostering new talent by teaching cinematography, producing, and acting.",
+    image: "/images/riel_films.jpg",
+    tags: ["Next.js", "Tailwind CSS", "Lucide React", "Framer Motion", "MongoDB", "Rich Text"],
+    source: "https://github.com/ProvLeon/riel-films",
+    visit: "https://riel-films-demo.onrender.com",
+    category: "Entertainment, Education, Documentary Film",
+    features: [
+      "Showcase of featured films, trailers, and synopses.",
+      "Sections for 'Trending Now', 'Current Productions', and 'Latest Stories'.",
+      "Clear presentation of the company's mission: 'The Voice of African Cinema'.",
+      "Community building via newsletter subscription for updates on releases and content.",
+      "Educational component aimed at teaching cinematography, producing, and acting.",
+      "Dynamic content (films, stories, educational material) managed via MongoDB and Rich Text editor.",
+      "Contact information and social media links.",
+    ],
+    implementation: `
+      Frontend built with Next.js, leveraging its capabilities for server-side rendering and static site generation.
+      Styled using Tailwind CSS for a modern, responsive, and utility-first approach.
+      Lucide React for iconography and Framer Motion for animations enhance the user experience.
+      MongoDB is used as the backend database to store dynamic content such as film details, articles, and potentially user/student data.
+      A Rich Text editor is integrated for content management, allowing the Riel Films team to easily update text-based content.
+    `,
+    challenges: [
+      "Balancing the showcase of cinematic work with the educational mission on the platform.",
+      "Managing and displaying diverse content types effectively (films, articles, educational resources).",
+      "Optimizing multimedia content (trailers, images) for web performance.",
+      "Building an engaging community platform for film enthusiasts and aspiring filmmakers.",
+      "Developing a user-friendly interface for the Rich Text editor to ensure easy content updates by the Riel Films team.",
+      "Scaling the platform to handle growing content and user interaction, especially if educational modules are expanded.",
+    ],
+  },
 ];
 
 export const TimeLineData: TimeLineItem[] = [

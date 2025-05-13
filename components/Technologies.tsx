@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { experiencesDetails, techStack } from "@/constants";
+import { use3DTilt } from "@/hooks/use3DTilt";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/shared/Card";
 import { iconMap } from "@/constants/icons";
@@ -93,8 +94,16 @@ export default function Technologies() {
 function TechCategory(
   { category, title, skills, index, Icon }: TechCategoryProps,
 ) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const tilt = use3DTilt(cardRef);
+
   return (
     <motion.div
+      ref={cardRef}
+      style={{
+        transform: `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+        transformStyle: "preserve-3d",
+      }}
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
