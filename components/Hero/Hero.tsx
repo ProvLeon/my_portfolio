@@ -452,7 +452,7 @@ const NameSection = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          I'm
+          I&apos;m
         </motion.p>
 
         {/* Main Name */}

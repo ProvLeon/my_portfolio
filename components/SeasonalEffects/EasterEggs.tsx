@@ -64,7 +64,7 @@ const DYNAMIC_COLORS = Array.from({ length: 10 }, () => ({
 }));
 
 // Update the renderFloatingElement function
-const renderFloatingElement = (index: number) => {
+const RenderFloatingElement = (index: number) => {
   const [position, setPosition] = useState(() => generateEggPosition());
   const [currentColor, setCurrentColor] = useState(generateRandomColor());
   const [nextColor, setNextColor] = useState(generateRandomColor());
@@ -315,7 +315,7 @@ export function EasterEggs() {
                     height: "100%",
                   }}
                 >
-                  {renderFloatingElement(i)}
+                  {RenderFloatingElement(i)}
                 </motion.div>
               ))}
             </motion.div>
