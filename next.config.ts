@@ -1,4 +1,5 @@
 // next.config.js
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   images: {
@@ -7,7 +8,7 @@ const nextConfig: NextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    serverActions: true,
+    serverActions: {},
   },
   webpack: (config) => {
     config.module.rules.push({
