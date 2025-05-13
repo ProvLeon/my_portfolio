@@ -213,7 +213,7 @@ export const projects: Project[] = [
     title: "Agrinvest",
     description:
       "Dedicated to scaling up agricultural productivity through empowering smallholder farmers, Agrinvest boosts productivity and meets the growing demand for quality grains, cereals, and vegetables across Ghana.",
-    image: "/images/agrinvest.jpg",
+    image: "/images/agrinvest.png",
     tags: ["Next.js", "Tailwind CSS", "Lucide React", "Framer Motion"],
     source: "https://github.com/ProvLeon/agrinvest_web",
     visit: "https://agrinvest-web.onrender.com",
@@ -245,7 +245,7 @@ export const projects: Project[] = [
     title: "Riel Films",
     description:
       "Riel Films is a beacon for African cinema, creating authentic African stories through documentary film. It aims to showcase the richness and diversity of African culture, traditions, and contemporary life to global audiences, collaborating with filmmakers across the continent. Additionally, Riel Films is dedicated to fostering new talent by teaching cinematography, producing, and acting.",
-    image: "/images/riel_films.jpg",
+    image: "/images/riel-films.png",
     tags: ["Next.js", "Tailwind CSS", "Lucide React", "Framer Motion", "MongoDB", "Rich Text"],
     source: "https://github.com/ProvLeon/riel-films",
     visit: "https://riel-films-demo.onrender.com",
