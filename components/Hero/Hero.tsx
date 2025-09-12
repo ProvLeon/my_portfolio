@@ -259,7 +259,7 @@ export default function Hero() {
               {/* Profile Image Container */}
               <div className="relative w-full h-full rounded-full border-2 border-primary p-1 overflow-hidden">
                 <Image
-                  src="/profile-pic.jpg"
+                  src="/profile-pic2.jpg"
                   alt="Emmanuel Lomotey"
                   fill
                   priority
