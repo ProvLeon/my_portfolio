@@ -567,7 +567,7 @@ export const careerMilestones: CareerMilestones = {
       project: "AI Education Platform",
       description:
         "Developing an adaptive learning environment leveraging ML-driven personalization and progress intelligence.",
-      expectedCompletion: "2024 Q3",
+      expectedCompletion: "2027 Q3",
       status: "in-progress",
       techs: ["Next.js", "Python", "FastAPI", "PostgreSQL", "LangChain"],
       progress: 55,
