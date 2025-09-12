@@ -19,8 +19,37 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://okantah.netlify.app"),
   title: "Emmanuel Okantah Lomotey | Portfolio",
   description: "Full Stack Developer Portfolio",
+  openGraph: {
+    title: "Emmanuel Okantah Lomotey | Portfolio",
+    description: "Full Stack Developer Portfolio",
+    url: "https://okantah.netlify.app",
+    siteName: "Okantah Portfolio",
+    images: [
+      {
+        url: "/profile-pic2.png",
+        width: 800,
+        height: 800,
+        alt: "Emmanuel Okantah Lomotey profile",
+      },
+      {
+        url: "/images/codeweave.png",
+        width: 1200,
+        height: 630,
+        alt: "Featured project preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Emmanuel Okantah Lomotey | Portfolio",
+    description: "Full Stack Developer Portfolio",
+    images: ["/profile-pic2.png"],
+  },
   icons: {
     icon: [
       {
