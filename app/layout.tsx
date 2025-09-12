@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         alt: "Emmanuel Okantah Lomotey profile",
       },
       {
-        url: "/images/codeweave.png",
+        url: "/images/blumen.png",
         width: 1200,
         height: 630,
         alt: "Featured project preview",
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     ],
     shortcut: "/favicon.ico",
     apple: {
-      url: "/apple-touch-icon.png",
+      url: "/og-image.png",
       sizes: "180x180",
       type: "image/png",
     },
@@ -75,13 +75,13 @@ export const metadata: Metadata = {
       },
       {
         rel: "android-chrome",
-        url: "/android-chrome-192x192.png",
+        url: "/og-image.png",
         sizes: "192x192",
         type: "image/png",
       },
       {
         rel: "android-chrome",
-        url: "/android-chrome-512x512.png",
+        url: "/og-image.png",
         sizes: "512x512",
         type: "image/png",
       },
