@@ -42,8 +42,14 @@ export default function CareerMilestones() {
     <section
       ref={containerRef}
       id="milestones"
-      className={styles.careerMilestones}
+      className={styles.careerMilestones + " relative"}
     >
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute -top-32 left-1/3 w-[50rem] h-[50rem] bg-primary/10 rounded-full blur-[140px]" />
+        <div className="absolute top-1/2 -left-40 w-[40rem] h-[40rem] bg-secondary/10 rounded-full blur-[160px]" />
+        <div className="absolute bottom-0 right-0 w-[55rem] h-[55rem] bg-accent/10 rounded-full blur-[180px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_60%_40%,rgba(255,255,255,0.04),transparent_70%)]" />
+      </div>
       {/* <BackgroundEffects /> */}
 
       <motion.div
@@ -52,18 +58,18 @@ export default function CareerMilestones() {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className={styles.container}
+        className={`${styles.container} relative z-10`}
       >
         {/* Header Section */}
         <motion.div className={styles.header} variants={fadeInUp}>
-          <motion.div
+          {/*<motion.div
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 10 }}
             className={styles.iconWrapper}
           >
             <BsStars className={styles.icon} />
-          </motion.div>
+          </motion.div>*/}
 
           <h2 className={styles.title}>
             Career Journey & Future Vision

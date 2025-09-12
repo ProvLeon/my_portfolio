@@ -36,6 +36,7 @@ export interface Technology {
 export interface TimeLineItem {
   year: number | string; // Allow both number and string
   text: string;
+  highlight?: string[];
 }
 
 export interface Achievement {
@@ -100,7 +101,7 @@ export interface Milestone {
   description: string;
   link?: string;
   metrics?: string[];
-  icon: string;
+  icon: ComponentType | IconType;
   techs?: string[];
   impact?: string[];
   category?: string;

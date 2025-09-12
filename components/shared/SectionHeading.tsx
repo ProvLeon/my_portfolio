@@ -7,10 +7,11 @@ interface SectionHeadingProps {
   title: string;
   subtitle?: string;
   centered?: boolean;
+  id?: string;
 }
 
 export function SectionHeading(
-  { title, subtitle, centered = true }: SectionHeadingProps,
+  { title, subtitle, centered = true, id }: SectionHeadingProps,
 ) {
   return (
     <motion.div
@@ -20,7 +21,7 @@ export function SectionHeading(
       // variants={fadeInUp}
       className={`mb-16 ${centered ? "text-center" : ""}`}
     >
-      <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-4">
+      <h2 id={id} className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent mb-4">
         {title}
       </h2>
       {subtitle && (
