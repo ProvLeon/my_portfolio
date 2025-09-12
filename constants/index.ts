@@ -590,9 +590,9 @@ export const careerMilestones: CareerMilestones = {
 };
 
 export const achievements: Achievement[] = [
-  { number: 5, text: "Open Source Projects" },
-  { number: 87, text: "Mentees" },
-  { number: 90, text: "Github Repositories" },
+  { number: 35, text: "Open Source Projects" },
+  { number: 130, text: "Mentees" },
+  { number: 126, text: "Github Repositories" },
   { number: 50, text: "Github Stars" },
 ];
 
