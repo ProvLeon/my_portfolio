@@ -22,72 +22,72 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://okantah.netlify.app"),
   title: "Emmanuel Okantah Lomotey | Portfolio",
   description: "Full Stack Developer Portfolio",
-  openGraph: {
-    title: "Emmanuel Okantah Lomotey | Portfolio",
-    description: "Full Stack Developer Portfolio",
-    url: "https://okantah.netlify.app",
-    siteName: "Okantah Portfolio",
-    images: [
-      {
-        url: "/profile-pic2.png",
-        width: 800,
-        height: 800,
-        alt: "Emmanuel Okantah Lomotey profile",
-      },
-      {
-        url: "/images/blumen.png",
-        width: 1200,
-        height: 630,
-        alt: "Featured project preview",
-      },
-    ],
-    locale: "en_US",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Emmanuel Okantah Lomotey | Portfolio",
-    description: "Full Stack Developer Portfolio",
-    images: ["/profile-pic2.png"],
-  },
-  icons: {
-    icon: [
-      {
-        url: "/favicon.ico",
-        sizes: "any",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
-    ],
-    shortcut: "/favicon.ico",
-    apple: {
-      url: "/og-image.png",
-      sizes: "180x180",
-      type: "image/png",
-    },
-    other: [
-      {
-        rel: "mask-icon",
-        url: "/safari-pinned-tab.svg",
-        color: "#3B82F6",
-      },
-      {
-        rel: "android-chrome",
-        url: "/og-image.png",
-        sizes: "192x192",
-        type: "image/png",
-      },
-      {
-        rel: "android-chrome",
-        url: "/og-image.png",
-        sizes: "512x512",
-        type: "image/png",
-      },
-    ],
-  },
-  manifest: "/site.webmanifest",
+  // openGraph: {
+  //   title: "Emmanuel Okantah Lomotey | Portfolio",
+  //   description: "Full Stack Developer Portfolio",
+  //   url: "https://okantah.netlify.app",
+  //   siteName: "Okantah Portfolio",
+  //   images: [
+  //     {
+  //       url: "/profile-pic2.png",
+  //       width: 800,
+  //       height: 800,
+  //       alt: "Emmanuel Okantah Lomotey profile",
+  //     },
+  //     {
+  //       url: "/images/blumen.png",
+  //       width: 1200,
+  //       height: 630,
+  //       alt: "Featured project preview",
+  //     },
+  //   ],
+  //   locale: "en_US",
+  //   type: "website",
+  // },
+  // twitter: {
+  //   card: "summary_large_image",
+  //   title: "Emmanuel Okantah Lomotey | Portfolio",
+  //   description: "Full Stack Developer Portfolio",
+  //   images: ["/profile-pic2.png"],
+  // },
+  // icons: {
+  //   icon: [
+  //     {
+  //       url: "/favicon.ico",
+  //       sizes: "any",
+  //     },
+  //     {
+  //       url: "/icon.svg",
+  //       type: "image/svg+xml",
+  //     },
+  //   ],
+  //   shortcut: "/favicon.ico",
+  //   apple: {
+  //     url: "/og-image.png",
+  //     sizes: "180x180",
+  //     type: "image/png",
+  //   },
+  //   other: [
+  //     {
+  //       rel: "mask-icon",
+  //       url: "/safari-pinned-tab.svg",
+  //       color: "#3B82F6",
+  //     },
+  //     {
+  //       rel: "android-chrome",
+  //       url: "/og-image.png",
+  //       sizes: "192x192",
+  //       type: "image/png",
+  //     },
+  //     {
+  //       rel: "android-chrome",
+  //       url: "/og-image.png",
+  //       sizes: "512x512",
+  //       type: "image/png",
+  //     },
+  //   ],
+  // },
+  // manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
