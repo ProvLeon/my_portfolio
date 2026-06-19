@@ -1,11 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-background: #000000;
+  --color-background: #050505;
   --color-foreground: #ffffff;
   --color-muted: #888888;
-  --color-border: #333333;
+  --color-border: #222222;
 }
 
 @layer base {
@@ -18,7 +17,6 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: "Bricolage Grotesque", sans-serif;
     cursor: none;
     overflow-x: hidden;
   }
@@ -27,10 +25,6 @@
     background-color: var(--color-foreground);
     color: var(--color-background);
   }
-}
-
-.font-mono {
-  font-family: "Space Mono", monospace;
 }
 
 /* Custom Scrollbar */
@@ -47,30 +41,4 @@
   background: var(--color-muted);
 }
 
-@layer utilities {
-  .border-os {
-    @apply border border-white/10;
-  }
-}
 
-/* SVG Sketch Line Animation */
-.sketch-line {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawLine 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.sketch-line-delay-1 {
-  animation-delay: 0.2s;
-}
-.sketch-line-delay-2 {
-  animation-delay: 0.4s;
-}
-.sketch-line-delay-3 {
-  animation-delay: 0.6s;
-}
-
-@keyframes drawLine {
-  to {
-    stroke-dashoffset: 0;
-  }
-}

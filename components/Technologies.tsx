@@ -4,34 +4,31 @@ import { techStack } from "@/constants";
 
 export default function Technologies() {
   return (
-    <section id="technologies" className="py-32 relative border-t border-white/10 bg-black text-white px-12 md:px-24">
-      <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
-        <div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tighter uppercase">Systems & Tech</h2>
-          <p className="font-mono text-[10px] uppercase tracking-widest text-white/50 mt-4">
-            // Core Competencies & Tooling
-          </p>
-        </div>
-      </div>
+    <section id="technologies" className="py-32 relative text-white px-12 md:px-24">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-sm font-medium tracking-[0.2em] uppercase text-white/50 mb-24">
+          Core Capabilities
+        </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10 border border-white/10">
-        {Object.entries(techStack).map(([category, { title, skills }]) => (
-          <div key={category} className="bg-black p-8 md:p-12 hover:bg-white/5 transition-colors duration-500">
-            <h3 className="font-mono text-[10px] uppercase tracking-widest text-white/40 mb-8 border-b border-white/10 pb-4">
-              [ {title} ]
-            </h3>
-            <div className="flex flex-wrap gap-x-6 gap-y-4">
-              {skills.map((skill) => (
-                <span 
-                  key={skill} 
-                  className="text-lg md:text-xl font-bold uppercase tracking-tight text-white/80 hover:text-white transition-colors"
-                >
-                  {skill}
-                </span>
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-8">
+          {Object.values(techStack).map((category) => (
+            <div key={category.title} className="group">
+              <h3 className="text-sm uppercase tracking-widest text-white/60 mb-8 border-b border-white/10 pb-4">
+                {category.title}
+              </h3>
+              <ul className="flex flex-col gap-4">
+                {category.skills.map((tech) => (
+                  <li 
+                    key={tech} 
+                    className="text-2xl md:text-3xl font-light tracking-tight hover:translate-x-4 transition-transform duration-500 ease-out cursor-none hover:text-white/80 text-white/40"
+                  >
+                    {tech}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

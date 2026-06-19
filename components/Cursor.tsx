@@ -10,7 +10,6 @@ export default function Cursor() {
   const targetRef = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
-    // Check if device has a fine pointer (mouse)
     const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
     if (isTouchDevice) return;
 
@@ -42,17 +41,18 @@ export default function Cursor() {
     window.addEventListener("mouseover", handleMouseOver);
     document.addEventListener("mouseleave", handleMouseLeave);
 
-    // Animation loop for smooth spring-like follow
     let animationFrameId: number;
     const animate = () => {
-      // Ease factor (higher = faster follow)
-      const ease = 0.25;
+      // Very high ease for almost instant follow, 
+      // but still smooth enough to feel like a custom cursor
+      const ease = 0.4;
       
       positionRef.current.x += (targetRef.current.x - positionRef.current.x) * ease;
       positionRef.current.y += (targetRef.current.y - positionRef.current.y) * ease;
 
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${positionRef.current.x - 20}px, ${positionRef.current.y - 20}px, 0)`;
+        // Center the dot (width is 16px, so offset by 8px)
+        cursorRef.current.style.transform = `translate3d(${positionRef.current.x - 8}px, ${positionRef.current.y - 8}px, 0)`;
       }
 
       animationFrameId = requestAnimationFrame(animate);
@@ -73,57 +73,14 @@ export default function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-10 h-10 pointer-events-none z-[9999] mix-blend-difference"
+        className="fixed top-0 left-0 w-4 h-4 pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center"
         style={{ willChange: "transform" }}
       >
         <div
-          className="w-full h-full transition-transform duration-300 ease-out"
-          style={{ transform: isHovering ? "scale(1.5)" : "scale(1)" }}
-        >
-          <svg
-            width="40"
-            height="40"
-            viewBox="0 0 40 40"
-            className={`w-full h-full transition-colors duration-300 ${
-              isHovering ? "text-cyan-400" : "text-white"
-            }`}
-          >
-            {/* Core Dot */}
-            <circle cx="20" cy="20" r="1" fill="currentColor" />
-
-            {/* Reticle Lines */}
-            <line x1="20" y1="12" x2="20" y2="18" stroke="currentColor" strokeWidth="0.5" />
-            <line x1="20" y1="22" x2="20" y2="28" stroke="currentColor" strokeWidth="0.5" />
-            <line x1="12" y1="20" x2="18" y2="20" stroke="currentColor" strokeWidth="0.5" />
-            <line x1="22" y1="20" x2="28" y2="20" stroke="currentColor" strokeWidth="0.5" />
-
-            {/* Rotating Ring */}
-            <g className="origin-center animate-[spin_4s_linear_infinite]">
-              <circle
-                cx="20"
-                cy="20"
-                r="16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.2"
-                strokeDasharray="2 4"
-              />
-            </g>
-
-            {/* Inner Ring when hovering */}
-            <circle
-              cx="20"
-              cy="20"
-              r="8"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="0.5"
-              className={`transition-all duration-300 origin-center ${
-                isHovering ? "opacity-100 scale-100" : "opacity-0 scale-50"
-              }`}
-            />
-          </svg>
-        </div>
+          className={`bg-white rounded-full transition-all duration-300 ease-out ${
+            isHovering ? "w-12 h-12 opacity-50" : "w-2 h-2 opacity-100"
+          }`}
+        />
       </div>
 
       <style jsx global>{`

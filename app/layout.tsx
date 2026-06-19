@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Analytics } from "@vercel/analytics/react";
 
@@ -9,6 +11,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import PageTransition from "@/components/PageTransition";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
+import WebGLCanvas from "@/components/WebGL/WebGLCanvas";
 
 export const viewport: Viewport = {
   themeColor: "#3B82F6",
@@ -69,10 +72,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className={`scroll-smooth ${inter.className}`} suppressHydrationWarning>
       <body suppressHydrationWarning className="antialiased relative bg-black selection:bg-white selection:text-black text-white">
         
         {/* Global UI Elements */}
+        <WebGLCanvas />
         <ScrollIndicator />
         <Cursor />
 
