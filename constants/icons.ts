@@ -1,5 +1,4 @@
 import {
-  SiAmazon,
   SiDjango,
   SiDocker,
   SiFigma,
@@ -20,6 +19,7 @@ import {
 } from "react-icons/si";
 
 import type { IconType } from "react-icons";
+import { FaAws } from "react-icons/fa";
 
 // Define the icon mapping with proper typing
 const iconMap: Record<string, IconType> = {
@@ -30,7 +30,7 @@ const iconMap: Record<string, IconType> = {
   "Python": SiPython,
   "Django": SiDjango,
   "Docker": SiDocker,
-  "AWS": SiAmazon,
+  "AWS": FaAws,
   "Node.js": SiNodedotjs,
   "MongoDB": SiMongodb,
   "PostgreSQL": SiPostgresql,

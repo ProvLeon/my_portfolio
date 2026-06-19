@@ -1,6 +1,55 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0F1624;
+  --color-background-light: #171F38;
+  --color-background-dark: #0A0F1A;
+  --color-background-card: #212D45;
+
+  --color-primary-light: #1AC7E4;
+  --color-primary: #13ADC7;
+  --color-primary-dark: #0D8A9E;
+
+  --color-secondary-light: #A674E8;
+  --color-secondary: #945DD6;
+  --color-secondary-dark: #7A4CB8;
+
+  --color-accent-light: #FF7B4A;
+  --color-accent: #F46737;
+  --color-accent-dark: #D65228;
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
+  --background-image-gradient-primary: linear-gradient(270deg, var(--tw-gradient-stops));
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-spin-slow: spin 8s linear infinite;
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-bounce-slow: bounce 3s infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+  }
+
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  --shadow-glow-primary: 0 0 20px rgba(19, 173, 199, 0.35);
+  --shadow-glow-secondary: 0 0 20px rgba(148, 93, 214, 0.35);
+  --shadow-glow-accent: 0 0 20px rgba(244, 103, 55, 0.35);
+
+  --ease-bounce-in: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+  --blur-xs: 2px;
+  
+  --z-60: 60;
+  --z-70: 70;
+  --z-80: 80;
+  --z-90: 90;
+  --z-100: 100;
+}
 
 :root {
     --foreground-rgb: 255, 255, 255;
@@ -13,13 +62,15 @@
 
 @layer base {
     html {
-        @apply scroll-smooth antialiased;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         scroll-padding-top: 80px;
-        /* Adjust based on your header height */
     }
 
     body {
-        @apply text-[rgb(var(--foreground-rgb))] bg-background;
+        color: rgb(var(--foreground-rgb));
+        background-color: var(--color-background);
         overflow-x: hidden;
     }
 }
@@ -36,16 +87,16 @@
 
 ::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom,
-            theme('colors.primary.DEFAULT'),
-            theme('colors.secondary.DEFAULT'));
+            var(--color-primary),
+            var(--color-secondary));
     border-radius: 8px;
     transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(to bottom,
-            theme('colors.primary.light'),
-            theme('colors.secondary.light'));
+            var(--color-primary-light),
+            var(--color-secondary-light));
 }
 
 /* Smooth scrolling with enhanced performance */

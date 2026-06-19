@@ -23,7 +23,6 @@ import {
 import type { IconType } from "react-icons";
 
 import {
-  SiAmazon,
   SiDjango,
   SiDocker,
   SiFirebase,
@@ -38,6 +37,7 @@ import {
   SiTailwindcss,
   SiTypescript,
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 import { Project } from "@/types";
 
 type ModalTab = "overview" | "features" | "architecture" | "challenges" | "preview";
@@ -204,6 +204,7 @@ function ProjectCard({ project, index, onViewDetails }: ProjectCardProps) {
             src={project.image}
             alt={project.title}
             fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover transition-transform duration-700 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-900/60 to-transparent" />
@@ -327,6 +328,7 @@ function ProjectModal({ project, onClose, activeTab, setActiveTab }: ProjectModa
             src={project.image}
             alt={project.title}
             fill
+            sizes="(max-width: 1200px) 100vw, 1200px"
             className="object-cover opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/80 to-transparent" />
@@ -601,7 +603,7 @@ function getTagIcon(tag: string) {
     PostgreSQL: <SiPostgresql className="w-4 h-4" />,
     MongoDB: <SiMongodb className="w-4 h-4" />,
     "Google Maps API": <SiGooglecloud className="w-4 h-4" />,
-    AWS: <SiAmazon className="w-4 h-4" />,
+    AWS: <FaAws className="w-4 h-4" />,
   };
 
   const tagMappings = Object.entries(iconMap).map(([key, value]) => ({

@@ -97,7 +97,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`scroll-smooth ${inter.variable}`}>
-      <body className="font-inter text-white antialiased relative">
+      <body suppressHydrationWarning className="font-inter text-white antialiased relative">
         {/* Seasonal effects */}
         {/* <SeasonalEffects /> */}
         {/* Background layers */}

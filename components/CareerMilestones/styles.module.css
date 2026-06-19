@@ -1,3 +1,5 @@
+@reference "../../app/globals.css";
+
 .careerMilestones {
     @apply py-10 relative overflow-hidden cursor-default;
 }

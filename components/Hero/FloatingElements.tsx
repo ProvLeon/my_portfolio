@@ -3,7 +3,6 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import {
-  SiAmazon,
   SiDjango,
   SiDocker,
   SiNextdotjs,
@@ -12,6 +11,7 @@ import {
   SiReact,
   SiTypescript,
 } from "react-icons/si";
+import { FaAws } from "react-icons/fa";
 
 export function FloatingElements() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,7 +56,7 @@ export function FloatingElements() {
     },
     {
       name: "AWS",
-      Icon: SiAmazon,
+      Icon: FaAws,
       gradient: "from-[#FF9900]/10 to-[#FF9900]/5",
     },
     {

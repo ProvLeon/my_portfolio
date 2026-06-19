@@ -543,14 +543,12 @@ function TimelineItem({
           }}
           animate={{
             scale: isActive ? 1.25 : 1,
-            backgroundColor: isActive
-              ? "var(--color-primary)"
-              : "rgba(var(--color-secondary-rgb),0.75)",
-            boxShadow: isActive
-              ? "0 0 24px 6px rgba(var(--color-primary-rgb),0.35)"
-              : "0 0 12px 4px rgba(var(--color-secondary-rgb),0.25)",
           }}
-          className="cursor-pointer absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-background flex items-center justify-center"
+          className={`cursor-pointer absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 border-background flex items-center justify-center transition-all duration-300 ${
+            isActive 
+              ? "bg-primary shadow-[0_0_24px_6px_rgba(var(--color-primary-rgb),0.35)]" 
+              : "bg-secondary/75 shadow-[0_0_12px_4px_rgba(var(--color-secondary-rgb),0.25)]"
+          }`}
           onClick={() => onActivate(index)}
         >
           <motion.span
