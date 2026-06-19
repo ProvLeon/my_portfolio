@@ -4,18 +4,11 @@ import "./globals.css";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Analytics } from "@vercel/analytics/react";
 
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
-import GradientCursor from "@/components/GradientCursor";
-import FloatingNav from "@/components/FloatingNav";
 import PageTransition from "@/components/PageTransition";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
+import SmoothScroll from "@/components/SmoothScroll";
+import Cursor from "@/components/Cursor";
 
 export const viewport: Viewport = {
   themeColor: "#3B82F6",
@@ -76,36 +69,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable}`} suppressHydrationWarning>
-      <body suppressHydrationWarning className="font-inter text-white antialiased relative">
-        {/* Background layers */}
-        <div className="fixed inset-0 -z-20">
-          {/* Gradient background */}
-          <div className="absolute inset-0 bg-background bg-gradient-radial from-background-light via-background to-background-dark" />
-
-          {/* Grid patterns */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]" />
-          <div className="absolute inset-0 bg-[url(/grid.svg)] bg-center opacity-10" />
-
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
-
-          {/* Radial gradient accent */}
-          <div className="absolute inset-0">
-            <div className="absolute inset-0 bg-gradient-radial from-primary/5 via-secondary/5 to-transparent" />
-          </div>
-        </div>
-
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body suppressHydrationWarning className="antialiased relative bg-black selection:bg-white selection:text-black text-white">
+        
         {/* Global UI Elements */}
         <ScrollIndicator />
-        <GradientCursor />
-        <Header />
-        <FloatingNav />
+        <Cursor />
 
         {/* Main Content with Transition */}
-        <PageTransition>
-          <div className="relative z-0">{children}</div>
-        </PageTransition>
+        <SmoothScroll>
+          <PageTransition>
+            <div className="relative z-0">{children}</div>
+          </PageTransition>
+        </SmoothScroll>
 
         <Footer />
         <ScrollToTop />
