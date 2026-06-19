@@ -1,31 +1,13 @@
 // app/page.tsx
 import type { Metadata } from "next";
-import { Suspense } from "react";
-import Loading from "./loading";
 
-// import dynamic from "next/dynamic";
-// import PageTransition from "@/components/PageTransition";
-// import FloatingNav from "@/components/FloatingNav";
-// import GradientCursor from "@/components/GradientCursor";
-
-// Dynamic imports
-// const FloatingElements = dynamic(
-//   () => import("@/components/Hero/FloatingElements").then((mod) => mod.default),
-//   { ssr: true }, // Change to false since it uses client-side features
-// );
-// const Hero = dynamic(() => import("@/components/Hero/Hero"), { ssr: true });
-// const Projects = dynamic(() => import("@/components/Projects"), { ssr: true });
-// const Technologies = dynamic(() => import("@/components/Technologies"), {
-//   ssr: true,
-// });
-// const Timeline = dynamic(() => import("@/components/TimeLine"), { ssr: true });
-// const Accomplishments = dynamic(() => import("@/components/Accomplishments"), {
-//   ssr: true,
-// });
-// const Header = dynamic(() => import("@/components/Header"), { ssr: true });
-// const Footer = dynamic(() => import("@/components/Footer"), { ssr: true });
-
-import Layout from "@/components/Layout";
+import Hero from "@/components/Hero/Hero";
+import Projects from "@/components/Projects";
+import Technologies from "@/components/Technologies";
+import Timeline from "@/components/TimeLine";
+import CareerMilestones from "@/components/CareerMilestones";
+import Accomplishments from "@/components/Accomplishments";
+import Contact from "@/components/Contact";
 
 export const metadata: Metadata = {
   title: "Emmanuel Okantah Lomotey | Portfolio",
@@ -34,48 +16,43 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    // <PageTransition>
-    //   <main className="min-h-screen">
-    //     <GradientCursor />
-    //     <Header />
-    //     <FloatingNav />
+    <main className="container px-4 mx-auto py-8">
+      <section id="hero" className="min-h-screen flex items-center">
+        <Hero />
+      </section>
 
-    //     {/* Main content with smooth scroll sections */}
-    //     <div className="container px-4 mx-auto py-8 ">
-    //       {/* Increased spacing between sections */}
-    //       <section id="hero" className="section-padding">
-    //         <Hero />
-    //       </section>
-    //       {/* <FloatingElements /> */}
+      <section id="projects" className="py-20">
+        <Projects />
+      </section>
 
-    //       <section id="projects" className="section-padding">
-    //         <Projects />
-    //       </section>
+      <section id="technologies" className="py-20 bg-background-light/5">
+        <Technologies />
+      </section>
 
-    //       <section
-    //         id="technologies"
-    //         className="section-padding bg-background-light/5"
-    //       >
-    //         <Technologies />
-    //       </section>
+      {/* Combined Journey Section */}
+      <div className="relative overflow-hidden">
+        {/* Shared Background Effect */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] animate-pulse-slow" />
+          <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-[100px] animate-pulse-slow delay-1000" />
+        </div>
 
-    //       <section id="timeline" className="section-padding">
-    //         <Timeline />
-    //       </section>
+        <section id="timeline" className="py-20">
+          <Timeline />
+        </section>
 
-    //       <section
-    //         id="accomplishments"
-    //         className="section-padding bg-background-light/5"
-    //       >
-    //         <Accomplishments />
-    //       </section>
-    //     </div>
+        <section id="milestones" className="py-20">
+          <CareerMilestones />
+        </section>
+      </div>
 
-    //     <Footer />
-    //   </main>
-    // </PageTransition>
-    <Suspense fallback={<Loading />}>
-      <Layout />
-    </Suspense>
+      <section id="accomplishments" className="py-20 bg-background-light/5">
+        <Accomplishments />
+      </section>
+
+      <section id="contact" className="py-10 md:py-20">
+        <Contact />
+      </section>
+    </main>
   );
 }

@@ -1,10 +1,15 @@
-// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import ScrollIndicator from "@/components/ScrollIndicator";
-// import SeasonalEffects from "@/components/SeasonalEffects";
 import { Analytics } from "@vercel/analytics/react";
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ScrollToTop from "@/components/ScrollToTop";
+import GradientCursor from "@/components/GradientCursor";
+import FloatingNav from "@/components/FloatingNav";
+import PageTransition from "@/components/PageTransition";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -62,32 +67,7 @@ export const metadata: Metadata = {
       },
     ],
     shortcut: "/favicon.ico",
-    // apple: {
-    //   url: "/og-image.png",
-    //   sizes: "180x180",
-    //   type: "image/png",
-    // },
-    // other: [
-    //   {
-    //     rel: "mask-icon",
-    //     url: "/safari-pinned-tab.svg",
-    //     color: "#3B82F6",
-    //   },
-    //   {
-    //     rel: "android-chrome",
-    //     url: "/og-image.png",
-    //     sizes: "192x192",
-    //     type: "image/png",
-    //   },
-    //   {
-    //     rel: "android-chrome",
-    //     url: "/og-image.png",
-    //     sizes: "512x512",
-    //     type: "image/png",
-    //   },
-    // ],
   },
-  // manifest: "/site.webmanifest",
 };
 
 export default function RootLayout({
@@ -96,17 +76,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
+    <html lang="en" className={`scroll-smooth ${inter.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning className="font-inter text-white antialiased relative">
-        {/* Seasonal effects */}
-        {/* <SeasonalEffects /> */}
         {/* Background layers */}
         <div className="fixed inset-0 -z-20">
           {/* Gradient background */}
           <div className="absolute inset-0 bg-background bg-gradient-radial from-background-light via-background to-background-dark" />
 
-          {/* Grid pattern */}
+          {/* Grid patterns */}
           <div className="absolute inset-0 bg-grid-pattern opacity-[0.02]" />
+          <div className="absolute inset-0 bg-[url(/grid.svg)] bg-center opacity-10" />
 
           {/* Gradient overlay */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
@@ -117,9 +96,19 @@ export default function RootLayout({
           </div>
         </div>
 
-        {/* Content */}
+        {/* Global UI Elements */}
         <ScrollIndicator />
-        <div className="relative z-0">{children}</div>
+        <GradientCursor />
+        <Header />
+        <FloatingNav />
+
+        {/* Main Content with Transition */}
+        <PageTransition>
+          <div className="relative z-0">{children}</div>
+        </PageTransition>
+
+        <Footer />
+        <ScrollToTop />
         <Analytics />
       </body>
     </html>

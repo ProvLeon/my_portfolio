@@ -277,8 +277,8 @@ function TechPill({ tech, variant, index }: TechPillProps) {
             key={i}
             className="absolute w-0.5 h-0.5 rounded-full bg-gray-400/20"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: `${(index * 37 + i * 19) % 100}%`,
+              left: `${(index * 41 + i * 23) % 100}%`,
             }}
             animate={{
               y: [0, -8, 0],
