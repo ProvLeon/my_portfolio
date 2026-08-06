@@ -17,21 +17,7 @@ export default function Footer() {
           <span className="hidden sm:inline">Architected with Next.js 16 &amp; Three.js</span>
         </div>
 
-        <nav className="flex flex-wrap items-center justify-center gap-6 text-xs font-mono tracking-wider uppercase">
-          {navigationLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.path}
-              className="text-muted hover:text-foreground transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
         <div className="flex items-center gap-5">
-          <ThemeToggle />
-          <div className="w-px h-6 bg-border hidden sm:block"></div>
           <a href="https://github.com/ProvLeon" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg bg-foreground/5 border border-border hover:bg-foreground/10 text-muted hover:text-foreground transition-colors" aria-label="GitHub">
             <AiFillGithub size={18} />
           </a>

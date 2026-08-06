@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
 import { FiArrowUpRight, FiCommand } from "react-icons/fi";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { name: "About", path: "#about" },
@@ -60,25 +61,26 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* CTA */}
-        <div className="hidden lg:flex items-center gap-4">
+        {/* Actions (Theme Toggle, CTA, Mobile Menu) */}
+        <div className="flex items-center gap-3 lg:gap-4">
+          <ThemeToggle />
+          
           <a
             href="#contact"
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-foreground/90 backdrop-blur-xl text-background font-semibold text-xs uppercase tracking-widest hover:bg-primary hover:text-white hover:scale-105 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.2)]"
+            className="hidden lg:flex items-center gap-2 px-6 py-2.5 rounded-full bg-foreground/90 backdrop-blur-xl text-background font-semibold text-xs uppercase tracking-widest hover:bg-primary hover:text-white hover:scale-105 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.2)]"
           >
             <span>Book A Call</span>
             <FiArrowUpRight className="w-4 h-4" />
           </a>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-3 rounded-full bg-background/80 backdrop-blur-md border border-border text-foreground shadow-sm"
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <HiX className="w-5 h-5" /> : <HiMenu className="w-5 h-5" />}
-        </button>
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-3 rounded-full bg-background/80 backdrop-blur-md border border-border text-foreground shadow-sm"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <HiX className="w-5 h-5" /> : <HiMenu className="w-5 h-5" />}
+          </button>
+        </div>
 
       </div>
 
