@@ -25,24 +25,72 @@ export default function Projects() {
   const sectionRef = useRef<HTMLElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const filtersRef = useRef<HTMLDivElement>(null);
-  const clipRectRef = useRef<SVGRectElement>(null);
+  const maskPath1Ref = useRef<SVGPathElement>(null);
+  const maskPath2Ref = useRef<SVGPathElement>(null);
+  const ball1Ref = useRef<HTMLDivElement>(null);
+  const ball2Ref = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!sectionRef.current || !clipRectRef.current) return;
+    if (!sectionRef.current || !maskPath1Ref.current || !maskPath2Ref.current || !ball1Ref.current || !ball2Ref.current) return;
 
-    gsap.fromTo(clipRectRef.current,
-      { attr: { height: 0 } },
-      {
-        attr: { height: 1000 },
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          end: "bottom 70%",
-          scrub: 1,
-        },
+    const mask1 = maskPath1Ref.current;
+    const mask2 = maskPath2Ref.current;
+    const len1 = mask1.getTotalLength();
+    const len2 = mask2.getTotalLength();
+
+    gsap.set(mask1, { strokeDasharray: len1, strokeDashoffset: len1 });
+    gsap.set(mask2, { strokeDasharray: len2, strokeDashoffset: len2 });
+
+    const proxy = { progress: 0 };
+    
+    const updatePaths = () => {
+      const p = proxy.progress;
+      
+      // --- Path 1 (Draws from 0 to 100%) ---
+      const curLen1 = p * len1;
+      gsap.set(mask1, { strokeDashoffset: len1 - curLen1 });
+      
+      let ball1Opacity = 1;
+      if (p <= 0.02) ball1Opacity = p / 0.02;
+      else if (p >= 0.98) ball1Opacity = (1 - p) / 0.02;
+
+      const pt1 = mask1.getPointAtLength(curLen1);
+      gsap.set(ball1Ref.current, { 
+        left: `${(pt1.x / 1440) * 100}%`, top: `${(pt1.y / 1000) * 100}%`, opacity: ball1Opacity 
+      });
+
+      // --- Path 2 (Starts drawing halfway down, p > 0.5) ---
+      const p2 = Math.max(0, (p - 0.5) * 2);
+      const curLen2 = p2 * len2;
+      gsap.set(mask2, { strokeDashoffset: len2 - curLen2 });
+      
+      let ball2Opacity = 1;
+      if (p2 <= 0.02) ball2Opacity = p2 / 0.02;
+      else if (p2 >= 0.98) ball2Opacity = (1 - p2) / 0.02;
+      
+      if (p2 > 0) {
+        const pt2 = mask2.getPointAtLength(curLen2);
+        gsap.set(ball2Ref.current, { 
+          left: `${(pt2.x / 1440) * 100}%`, top: `${(pt2.y / 1000) * 100}%`, opacity: ball2Opacity 
+        });
+      } else {
+        gsap.set(ball2Ref.current, { opacity: 0 });
       }
-    );
+    };
+
+    updatePaths();
+
+    gsap.to(proxy, {
+      progress: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%",
+        end: "bottom 70%",
+        scrub: 1,
+      },
+      onUpdate: updatePaths
+    });
 
     gsap.fromTo(
       headerRef.current,
@@ -81,14 +129,19 @@ export default function Projects() {
     : projects.filter((p) => p.category.toLowerCase().includes(activeCategory.toLowerCase()));
 
   return (
-    <section ref={sectionRef} id="projects" className="py-24 md:py-32 bg-background w-full px-6 sm:px-12 md:px-24 relative overflow-hidden">
+    <section ref={sectionRef} id="projects" className="py-24 md:py-32 bg-background w-full px-6 sm:px-12 md:px-24 relative">
       
       {/* Narrative Thread Segment 4 */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden lg:block z-0">
-        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
-          <clipPath id="projects-clip">
-            <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
-          </clipPath>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block z-0">
+        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none" style={{ overflow: "visible" }}>
+          <defs>
+            <mask id="projects-mask-1">
+              <path ref={maskPath1Ref} d="M 140 0 C 140 300, 1600 500, 1600 1000" stroke="white" strokeWidth="40" fill="none" />
+            </mask>
+            <mask id="projects-mask-2">
+              <path ref={maskPath2Ref} d="M -160 500 C -160 800, 140 800, 140 1000" stroke="white" strokeWidth="40" fill="none" />
+            </mask>
+          </defs>
           <path
             d="M 140 0 C 140 300, 1600 500, 1600 1000"
             stroke="var(--color-primary)"
@@ -96,7 +149,7 @@ export default function Projects() {
             fill="none"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
-            clipPath="url(#projects-clip)"
+            mask="url(#projects-mask-1)"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
           <path
@@ -106,10 +159,14 @@ export default function Projects() {
             fill="none"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
-            clipPath="url(#projects-clip)"
+            mask="url(#projects-mask-2)"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
         </svg>
+
+        {/* Glowing Balls at the Tips */}
+        <div ref={ball1Ref} className="absolute w-2.5 h-2.5 bg-primary rounded-full z-10" style={{ transform: "translate(-50%, -50%)", boxShadow: "0 0 12px 3px rgba(255,69,0,0.6)" }} />
+        <div ref={ball2Ref} className="absolute w-2.5 h-2.5 bg-primary rounded-full z-10" style={{ transform: "translate(-50%, -50%)", boxShadow: "0 0 12px 3px rgba(255,69,0,0.6)" }} />
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
