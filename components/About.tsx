@@ -14,28 +14,56 @@ if (typeof window !== "undefined") {
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const clipRectRef = useRef<SVGRectElement>(null);
+  const maskPathRef = useRef<SVGPathElement>(null);
+  const ballRef = useRef<HTMLDivElement>(null);
   
   const col1Ref = useRef<HTMLDivElement>(null);
   const col2Ref = useRef<HTMLDivElement>(null);
   const col3Ref = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!sectionRef.current || !clipRectRef.current) return;
+    if (!sectionRef.current || !maskPathRef.current || !ballRef.current) return;
 
-    gsap.fromTo(clipRectRef.current,
-      { attr: { height: 0 } },
-      {
-        attr: { height: 1000 },
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%", 
-          end: "bottom 70%",
-          scrub: 1,
-        },
-      }
-    );
+    const maskPath = maskPathRef.current;
+    const length = maskPath.getTotalLength();
+    
+    gsap.set(maskPath, { strokeDasharray: length, strokeDashoffset: length });
+
+    const proxy = { progress: 0 };
+    
+    const updatePath = () => {
+      if (!maskPathRef.current || !ballRef.current) return;
+      
+      const p = proxy.progress;
+      const currentLen = p * length;
+      
+      gsap.set(maskPath, { strokeDashoffset: length - currentLen });
+      
+      let ballOpacity = 1;
+      if (p <= 0.02) ballOpacity = p / 0.02;
+      else if (p >= 0.98) ballOpacity = (1 - p) / 0.02;
+
+      const point = maskPath.getPointAtLength(currentLen);
+      gsap.set(ballRef.current, { 
+        left: `${(point.x / 1440) * 100}%`, 
+        top: `${(point.y / 1000) * 100}%`,
+        opacity: ballOpacity
+      });
+    };
+
+    updatePath();
+
+    gsap.to(proxy, {
+      progress: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%", 
+        end: "bottom 70%",
+        scrub: 1,
+      },
+      onUpdate: updatePath
+    });
 
     // --- Columns Stagger Reveal ---
     const columns = [col1Ref.current, col2Ref.current, col3Ref.current].filter(Boolean);
@@ -59,14 +87,22 @@ export default function About() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} id="about" className="py-24 md:py-32 bg-background w-full px-6 sm:px-12 md:px-24 relative overflow-hidden">
+    <section ref={sectionRef} id="about" className="py-24 md:py-32 bg-background w-full px-6 sm:px-12 md:px-24 relative">
       
       {/* Narrative Thread Segment 2 */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden lg:block z-0">
-        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
-          <clipPath id="about-clip">
-            <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
-          </clipPath>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block z-0">
+        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none" style={{ overflow: "visible" }}>
+          <defs>
+            <mask id="about-mask">
+              <path
+                ref={maskPathRef}
+                d="M 1300 0 C 1300 500, 1600 500, 1600 1000"
+                stroke="white"
+                strokeWidth="40"
+                fill="none"
+              />
+            </mask>
+          </defs>
           <path
             d="M 1300 0 C 1300 500, 1600 500, 1600 1000"
             stroke="var(--color-primary)"
@@ -74,10 +110,20 @@ export default function About() {
             fill="none"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
-            clipPath="url(#about-clip)"
+            mask="url(#about-mask)"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
         </svg>
+
+        {/* Glowing Ball at the Tip */}
+        <div 
+          ref={ballRef}
+          className="absolute w-2.5 h-2.5 bg-primary rounded-full z-10"
+          style={{ 
+            transform: "translate(-50%, -50%)", 
+            boxShadow: "0 0 12px 3px rgba(255,69,0,0.6)" 
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
