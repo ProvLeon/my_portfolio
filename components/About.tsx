@@ -6,7 +6,7 @@ import { FiPlus } from "react-icons/fi";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import CountUp from "react-countup";
+import AnimatedNumber from "./AnimatedNumber";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -69,7 +69,7 @@ export default function About() {
           </clipPath>
           <path
             d="M 720 0 C 720 333, 960 333, 960 500 C 960 666, 720 666, 720 1000"
-            stroke="#FF4500"
+            stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
@@ -99,12 +99,12 @@ export default function About() {
 
           {/* Middle Column: Stat Card */}
           <div ref={col2Ref} className="lg:col-span-3 flex justify-center lg:justify-start opacity-0">
-            <div className="w-full max-w-sm bg-white rounded-3xl p-8 shadow-sm border border-border flex flex-col items-center text-center relative overflow-hidden">
+            <div className="w-full max-w-sm bg-background rounded-3xl p-8 shadow-sm border border-border flex flex-col items-center text-center relative overflow-hidden">
               <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center mb-6 text-foreground">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/><path d="M2 12h20"/></svg>
               </div>
-              <h3 className="text-5xl font-medium text-[#FF4500] mb-3">
-                <CountUp start={0} end={99.9} duration={2} decimals={1} enableScrollSpy scrollSpyOnce />%
+              <h3 className="text-5xl font-medium text-primary mb-3">
+                <AnimatedNumber value={99.9} duration={2} decimals={1} />%
               </h3>
               <p className="text-sm text-muted mb-8 leading-relaxed">
                 Average system uptime across all production platforms I've architected in the past 4 years.
@@ -125,7 +125,7 @@ export default function About() {
           <div ref={col3Ref} className="lg:col-span-4 flex flex-col justify-center gap-12 lg:pl-8 opacity-0">
             
             <div className="flex gap-6">
-              <div className="w-8 h-8 rounded-full bg-[#FF4500]/10 text-[#FF4500] flex-shrink-0 flex items-center justify-center mt-1">
+              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex-shrink-0 flex items-center justify-center mt-1">
                 <FiPlus className="w-4 h-4" />
               </div>
               <p className="text-muted text-sm sm:text-base leading-relaxed font-light">
@@ -134,7 +134,7 @@ export default function About() {
             </div>
 
             <div className="flex gap-6">
-              <div className="w-8 h-8 rounded-full bg-[#FF4500]/10 text-[#FF4500] flex-shrink-0 flex items-center justify-center mt-1">
+              <div className="w-8 h-8 rounded-full bg-primary/10 text-primary flex-shrink-0 flex items-center justify-center mt-1">
                 <FiPlus className="w-4 h-4" />
               </div>
               <p className="text-muted text-sm sm:text-base leading-relaxed font-light">

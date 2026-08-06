@@ -60,7 +60,7 @@ export default function SnowfallEffect() {
           }}
         >
           <div
-            className="w-full h-full rounded-full bg-white opacity-80
+            className="w-full h-full rounded-full bg-foreground opacity-80
                      backdrop-blur-sm shadow-lg"
             style={{
               animation: `twinkle ${Math.random() * 3 + 2}s infinite`,

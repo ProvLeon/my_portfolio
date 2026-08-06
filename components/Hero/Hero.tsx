@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { FiArrowDown } from "react-icons/fi";
 import Image from "next/image";
-import CountUp from "react-countup";
+import AnimatedNumber from "../AnimatedNumber";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -52,7 +52,7 @@ export default function Hero() {
           </clipPath>
           <path
             d="M 200 300 C 400 300, 960 400, 960 600 C 960 800, 720 800, 720 1000"
-            stroke="#FF4500"
+            stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
@@ -77,13 +77,13 @@ export default function Hero() {
           >
             <div>
               <span className="block text-4xl font-light text-foreground mb-1">
-                +<CountUp start={0} end={11} duration={2} delay={0.5} />
+                +<AnimatedNumber value={11} duration={2} delay={0.5} />
               </span>
               <span className="text-xs uppercase tracking-widest text-muted">Platforms Shipped</span>
             </div>
             <div>
               <span className="block text-4xl font-light text-foreground mb-1">
-                +<CountUp start={0} end={130} duration={2.5} delay={0.6} />
+                +<AnimatedNumber value={130} duration={2.5} delay={0.6} />
               </span>
               <span className="text-xs uppercase tracking-widest text-muted">Engineers Mentored</span>
             </div>
@@ -96,7 +96,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
             className="text-7xl sm:text-8xl md:text-9xl font-normal leading-[0.9] tracking-tighter mb-8"
           >
-            Hello<span className="text-[#FF4500]">.</span>
+            Hello<span className="text-primary">.</span>
           </motion.h1>
 
           {/* Subtitle / Role */}
@@ -106,9 +106,9 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             className="flex items-center gap-4 text-base md:text-lg text-foreground font-medium"
           >
-            <span className="w-8 h-[1px] bg-[#FF4500]"></span>
+            <span className="w-8 h-[1px] bg-primary"></span>
             <p>
-              It's Emmanuel (LEO)<span className="text-[#FF4500]">.</span> a <br/> Lead Product Designer &amp; Engineer
+              It's Emmanuel (LEO)<span className="text-primary">.</span> a <br/> Lead Product Designer &amp; Engineer
             </p>
           </motion.div>
 
@@ -119,7 +119,7 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
           animate={mounted ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
           transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full aspect-square md:aspect-[4/5] lg:aspect-auto lg:h-[700px] rounded-3xl overflow-hidden bg-[#e5e5e5]"
+          className="relative w-full aspect-square md:aspect-[4/5] lg:aspect-auto lg:h-[700px] rounded-3xl overflow-hidden bg-foreground/5"
         >
           {/* We assume profile-pic2.png is the user's portrait. If it's a cutout, the grey bg looks good. */}
           <Image 

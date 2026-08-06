@@ -13,7 +13,7 @@ function ScrollIndicatorContent() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-1 bg-white z-100"
+      className="fixed top-0 left-0 right-0 h-1 bg-primary z-100"
       style={{ scaleX }}
     />
   );

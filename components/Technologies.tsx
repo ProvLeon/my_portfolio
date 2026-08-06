@@ -87,7 +87,7 @@ export default function Technologies() {
           </defs>
           <path
             d="M 720 0 C 720 333, 480 333, 480 500 C 480 666, 720 666, 720 1000"
-            stroke="#FF4500"
+            stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"
             clipPath="url(#tech-clip)"
@@ -101,7 +101,7 @@ export default function Technologies() {
         {/* Section Header */}
         <div ref={headerRef} className="mb-16 border-b border-border/50 pb-8 opacity-0">
           <span className="text-xs font-mono uppercase tracking-[0.25em] text-muted mb-3 flex items-center gap-2">
-            <FiTerminal className="w-3.5 h-3.5 text-[#FF4500]" /> Technical Mastery &amp; Stack
+            <FiTerminal className="w-3.5 h-3.5 text-primary" /> Technical Mastery &amp; Stack
           </span>
           <h2 className="text-4xl sm:text-6xl font-medium tracking-tight text-foreground leading-[1.1]">
             Core Engineering <br />
@@ -119,13 +119,13 @@ export default function Technologies() {
             return (
               <div
                 key={category.title}
-                className="group p-8 rounded-3xl bg-white shadow-sm border border-border hover:border-[#FF4500]/30 transition-all duration-300 flex flex-col justify-between opacity-0"
+                className="group p-8 rounded-3xl bg-background shadow-sm border border-border hover:border-primary/30 transition-all duration-300 flex flex-col justify-between opacity-0"
               >
                 <div>
                   {/* Category Icon & Title */}
                   <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center text-foreground group-hover:border-[#FF4500]/40 group-hover:bg-[#FF4500]/10 transition-colors">
-                      <Icon className="w-5 h-5 group-hover:text-[#FF4500] transition-colors" />
+                    <div className="w-10 h-10 rounded-xl bg-background border border-border flex items-center justify-center text-foreground group-hover:border-primary/40 group-hover:bg-primary/10 transition-colors">
+                      <Icon className="w-5 h-5 group-hover:text-primary transition-colors" />
                     </div>
                     <h3 className="text-base font-medium text-foreground tracking-wide">
                       {category.title}
@@ -137,7 +137,7 @@ export default function Technologies() {
                     {category.skills.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-mono text-muted hover:text-foreground hover:bg-[#FF4500]/10 hover:border-[#FF4500]/40 transition-all duration-300 cursor-default"
+                        className="px-3 py-1.5 rounded-lg bg-background border border-border text-xs font-mono text-muted hover:text-foreground hover:bg-primary/10 hover:border-primary/40 transition-all duration-300 cursor-default"
                       >
                         {tech}
                       </span>
@@ -145,9 +145,9 @@ export default function Technologies() {
                   </div>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-border/50 flex items-center justify-between text-[10px] font-mono text-muted uppercase tracking-wider group-hover:border-[#FF4500]/20 transition-colors">
+                <div className="mt-8 pt-4 border-t border-border/50 flex items-center justify-between text-[10px] font-mono text-muted uppercase tracking-wider group-hover:border-primary/20 transition-colors">
                   <span>Category 0{idx + 1}</span>
-                  <span className="group-hover:text-[#FF4500] transition-colors">{category.skills.length} Skills</span>
+                  <span className="group-hover:text-primary transition-colors">{category.skills.length} Skills</span>
                 </div>
               </div>
             );

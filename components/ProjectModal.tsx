@@ -58,7 +58,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl max-h-[90vh] rounded-3xl bg-white border border-border shadow-2xl z-10 overflow-hidden flex flex-col"
+          className="relative w-full max-w-4xl max-h-[90vh] rounded-3xl bg-background border border-border shadow-2xl z-10 overflow-hidden flex flex-col"
         >
           {/* Close Button */}
           <button
@@ -109,7 +109,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 href={project.source}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-background text-foreground font-semibold text-xs uppercase tracking-wider border border-border transition-all"
+                className="flex items-center gap-2 px-6 py-3 rounded-full bg-background hover:bg-foreground hover:text-background text-foreground font-semibold text-xs uppercase tracking-wider border border-border transition-all"
               >
                 <FiGithub className="w-4 h-4" />
                 <span>Source Code</span>

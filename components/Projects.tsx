@@ -91,7 +91,7 @@ export default function Projects() {
           </clipPath>
           <path
             d="M 720 0 C 720 333, 960 333, 960 500 C 960 666, 720 666, 720 1000"
-            stroke="#FF4500"
+            stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
@@ -117,7 +117,7 @@ export default function Projects() {
           </div>
 
           {/* View Switcher Controls */}
-          <div className="flex items-center gap-2 p-1.5 rounded-full border border-border shrink-0 bg-white shadow-sm">
+          <div className="flex items-center gap-2 p-1.5 rounded-full border border-border shrink-0 bg-background shadow-sm">
             <button
               onClick={() => setViewMode("grid")}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all ${
@@ -146,10 +146,10 @@ export default function Projects() {
               className={`flex items-center px-4 py-2 rounded-full text-xs font-mono tracking-wider whitespace-nowrap transition-all border ${
                 activeCategory === cat
                   ? "bg-foreground border-foreground text-background"
-                  : "border-border text-muted hover:border-foreground/30 hover:text-foreground bg-white"
+                  : "border-border text-muted hover:border-foreground/30 hover:text-foreground bg-background"
               }`}
             >
-              {activeCategory === cat && <span className="w-1.5 h-1.5 rounded-full bg-[#FF4500] shadow-[0_0_8px_rgba(255,69,0,0.5)] mr-2"></span>}
+              {activeCategory === cat && <span className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(255,69,0,0.5)] mr-2"></span>}
               {cat}
             </button>
           ))}
@@ -168,11 +168,10 @@ export default function Projects() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.5, delay: idx * 0.05 }}
                   onClick={() => setSelectedProject(project)}
-                  data-cursor-text="INSPECT"
                   className="group flex flex-col cursor-pointer"
                 >
                   {/* Large Editorial Image */}
-                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-[#e5e5e5] group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.15)] transition-all duration-700">
+                  <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 bg-foreground/5 group-hover:-translate-y-2 group-hover:shadow-[0_20px_40px_-15px_rgba(255,69,0,0.15)] transition-all duration-700">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -182,7 +181,7 @@ export default function Projects() {
                     
                     {/* Hover Overlay Arrow */}
                     <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-500 flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-[#FF4500] shadow-xl shadow-[#FF4500]/30 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-500">
+                      <div className="w-16 h-16 rounded-full bg-primary shadow-xl shadow-primary/30 flex items-center justify-center opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-500">
                         <FiArrowUpRight className="w-6 h-6 text-white" />
                       </div>
                     </div>
@@ -217,11 +216,10 @@ export default function Projects() {
                   exit={{ opacity: 0, height: 0 }}
                   key={project.id}
                   onClick={() => setSelectedProject(project)}
-                  data-cursor-text="VIEW"
-                  className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 md:py-10 border-b border-border/50 hover:border-[#FF4500]/30 transition-colors duration-500 cursor-pointer"
+                  className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 md:py-10 border-b border-border/50 hover:border-primary/30 transition-colors duration-500 cursor-pointer"
                 >
                   <div className="flex items-start md:items-center gap-6 md:gap-12">
-                    <span className="text-sm font-mono tracking-widest text-muted/50 group-hover:text-[#FF4500] transition-colors">
+                    <span className="text-sm font-mono tracking-widest text-muted/50 group-hover:text-primary transition-colors">
                       {(index + 1).toString().padStart(2, "0")}
                     </span>
                     
@@ -236,10 +234,10 @@ export default function Projects() {
                   </div>
 
                   <div className="mt-4 md:mt-0 flex items-center gap-6">
-                    <span className="text-xs font-mono uppercase tracking-widest text-muted px-4 py-1.5 rounded-full border border-border bg-white group-hover:border-[#FF4500]/30 transition-colors">
+                    <span className="text-xs font-mono uppercase tracking-widest text-muted px-4 py-1.5 rounded-full border border-border bg-background group-hover:border-primary/30 transition-colors">
                       {project.category}
                     </span>
-                    <FiArrowUpRight className="w-6 h-6 text-muted group-hover:text-[#FF4500] group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
+                    <FiArrowUpRight className="w-6 h-6 text-muted group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300" />
                   </div>
                 </motion.div>
               ))}

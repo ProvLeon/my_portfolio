@@ -136,7 +136,7 @@ export function Snow() {
               {/* Base crystalline pattern */}
               <path
                 d={SNOWFLAKE_PATTERNS[flake.pattern]}
-                stroke="white"
+                stroke="var(--color-foreground)"
                 strokeWidth="0.8"
                 className="opacity-80"
               />
@@ -144,7 +144,7 @@ export function Snow() {
               {/* Variation pattern */}
               <path
                 d={flake.variation}
-                stroke="white"
+                stroke="var(--color-foreground)"
                 strokeWidth="0.4"
                 className="opacity-60"
               />
@@ -156,10 +156,10 @@ export function Snow() {
                   transform={`rotate(${i * 60})`}
                   className="opacity-60"
                 >
-                  <circle r="1" cx="8" fill="white" />
+                  <circle r="1" cx="8" fill="var(--color-foreground)" />
                   <path
                     d="M4 0 L12 0"
-                    stroke="white"
+                    stroke="var(--color-foreground)"
                     strokeWidth="0.5"
                     strokeLinecap="round"
                   />
@@ -169,9 +169,9 @@ export function Snow() {
               {/* Enhanced gradients */}
               <defs>
                 <radialGradient id="snowflakeGradient">
-                  <stop offset="0%" stopColor="white" stopOpacity="0.9" />
-                  <stop offset="50%" stopColor="white" stopOpacity="0.5" />
-                  <stop offset="100%" stopColor="white" stopOpacity="0.2" />
+                  <stop offset="0%" stopColor="var(--color-foreground)" stopOpacity="0.9" />
+                  <stop offset="50%" stopColor="var(--color-foreground)" stopOpacity="0.5" />
+                  <stop offset="100%" stopColor="var(--color-foreground)" stopOpacity="0.2" />
                 </radialGradient>
                 <filter id="glow">
                   <feGaussianBlur stdDeviation="1" result="coloredBlur" />

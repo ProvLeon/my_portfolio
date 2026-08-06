@@ -6,25 +6,37 @@ import { FiClock, FiCheckCircle } from "react-icons/fi";
 
 export default function TimeLine() {
   return (
-    <section id="experience" className="py-32 relative text-white px-6 sm:px-12 md:px-24">
-      
+    <section id="experience" className="py-32 relative text-foreground px-6 sm:px-12 md:px-24 overflow-hidden">
+      {/* Background SVG Thread */}
+      <div className="absolute inset-0 pointer-events-none z-0 hidden lg:block">
+        <svg className="absolute top-0 left-0 w-full h-full" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+          <path
+            d="M 720 0 L 720 1000"
+            stroke="var(--color-primary)"
+            strokeWidth="2.5"
+            fill="none"
+            className="drop-shadow-[0_0_8px_rgba(255,69,0,0.5)]"
+          />
+        </svg>
+      </div>
+
       <div className="max-w-7xl mx-auto z-10 relative">
         
         {/* Section Header */}
-        <div className="mb-20 border-b border-white/10 pb-8">
-          <span className="text-xs font-mono uppercase tracking-[0.25em] text-[#a3a3a3] mb-3 flex items-center gap-2">
+        <div className="mb-20 border-b border-border pb-8">
+          <span className="text-xs font-mono uppercase tracking-[0.25em] text-muted mb-3 flex items-center gap-2">
             <FiClock className="w-3.5 h-3.5" /> Career Journey &amp; Milestones
           </span>
-          <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-white">
+          <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-foreground">
             Engineering Evolution &amp; <br />
-            <span className="text-[#a3a3a3] font-light italic">
+            <span className="text-muted font-light italic">
               Proven Track Record
             </span>
           </h2>
         </div>
 
         {/* Timeline Path */}
-        <div className="relative border-l border-white/15 ml-4 sm:ml-8 pl-6 sm:pl-12 space-y-12">
+        <div className="relative border-l border-border ml-4 sm:ml-8 pl-6 sm:pl-12 space-y-12">
           {TimeLineData.map((item, index) => (
             <motion.div
               key={index}
@@ -35,21 +47,21 @@ export default function TimeLine() {
               className="relative group"
             >
               {/* Timeline Node Icon */}
-              <div className="absolute -left-[31px] sm:-left-[55px] top-1.5 w-5 h-5 rounded-full bg-[#050505] border-2 border-white/30 flex items-center justify-center group-hover:scale-125 group-hover:bg-white transition-all duration-300 shadow-md shadow-white/20">
-                <div className="w-1.5 h-1.5 rounded-full bg-white group-hover:bg-[#050505]" />
+              <div className="absolute -left-[31px] sm:-left-[55px] top-1.5 w-5 h-5 rounded-full bg-background border-2 border-border flex items-center justify-center group-hover:scale-125 group-hover:bg-foreground transition-all duration-300 shadow-md">
+                <div className="w-1.5 h-1.5 rounded-full bg-foreground group-hover:bg-background" />
               </div>
 
               {/* Milestone Card */}
-              <div className="p-6 sm:p-8 rounded-3xl glass-card border border-white/10 glass-card-hover">
+              <div className="p-6 sm:p-8 rounded-3xl glass-card border border-border glass-card-hover">
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
-                  <span className="px-3.5 py-1 rounded-full bg-white/5 border border-white/30 text-white font-mono text-xs font-semibold">
+                  <span className="px-3.5 py-1 rounded-full bg-foreground/5 border border-border text-foreground font-mono text-xs font-semibold">
                     {item.year}
                   </span>
                   
                   {item.highlight && item.highlight.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {item.highlight.map((h, i) => (
-                        <span key={i} className="px-2.5 py-1 rounded-md bg-white/5 border border-white/5 text-[10px] font-mono text-[#a3a3a3]">
+                        <span key={i} className="px-2.5 py-1 rounded-md bg-foreground/5 border border-border text-[10px] font-mono text-muted">
                           {h}
                         </span>
                       ))}
@@ -57,7 +69,7 @@ export default function TimeLine() {
                   )}
                 </div>
 
-                <p className="text-base text-[#a3a3a3] font-light leading-relaxed">
+                <p className="text-base text-muted font-light leading-relaxed">
                   {item.text}
                 </p>
               </div>

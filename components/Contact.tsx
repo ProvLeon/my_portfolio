@@ -125,8 +125,8 @@ export default function Contact() {
             <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
           </clipPath>
           <path
-            d="M 720 0 C 720 333, 480 333, 480 500 C 480 700, 720 800, 720 994"
-            stroke="#FF4500"
+            d="M 720 0 L 720 1000"
+            stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
@@ -134,7 +134,7 @@ export default function Contact() {
             clipPath="url(#contact-clip)"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
-          <circle cx="720" cy="994" r="6" fill="#FF4500" ref={arrowheadRef} className="opacity-0 drop-shadow-[0_0_10px_rgba(255,69,0,1)]" />
+          <circle cx="720" cy="994" r="6" fill="var(--color-primary)" ref={arrowheadRef} className="opacity-0 drop-shadow-md" />
         </svg>
       </div>
 
@@ -163,21 +163,21 @@ export default function Contact() {
               <h3 className="text-xl font-medium text-foreground mb-8">Direct Channels</h3>
               
               {/* Email Box */}
-              <div className="p-5 rounded-2xl bg-white border border-border mb-4 flex items-center justify-between shadow-sm hover:border-[#FF4500]/30 hover:shadow-md transition-all duration-300">
+              <div className="p-5 rounded-2xl bg-background border border-border mb-4 flex items-center justify-between shadow-sm hover:border-primary/30 hover:shadow-md transition-all duration-300">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-[#FF4500] transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
                     <FiMail className="w-5 h-5" />
                   </div>
                   <div>
                     <span className="text-[10px] font-mono text-muted uppercase tracking-widest block mb-1">Email</span>
-                    <a href={`mailto:${contactInfo.email}`} className="text-sm font-medium text-foreground hover:text-[#FF4500] transition-colors">
+                    <a href={`mailto:${contactInfo.email}`} className="text-sm font-medium text-foreground hover:text-primary transition-colors">
                       {contactInfo.email}
                     </a>
                   </div>
                 </div>
                 <button
                   onClick={handleCopyEmail}
-                  className="p-3 rounded-full bg-background hover:bg-[#FF4500]/10 hover:text-[#FF4500] text-foreground transition-colors border border-border"
+                  className="p-3 rounded-full bg-background hover:bg-primary/10 hover:text-primary text-foreground transition-colors border border-border"
                   aria-label="Copy Email"
                 >
                   {copied ? <FiCheck className="w-4 h-4 text-green-500" /> : <FiCopy className="w-4 h-4" />}
@@ -185,21 +185,21 @@ export default function Contact() {
               </div>
 
               {/* Phone & WhatsApp */}
-              <div className="p-5 rounded-2xl bg-white border border-border mb-4 flex items-center gap-4 shadow-sm hover:border-[#FF4500]/30 hover:shadow-md transition-all duration-300">
-                <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-[#FF4500] transition-colors">
+              <div className="p-5 rounded-2xl bg-background border border-border mb-4 flex items-center gap-4 shadow-sm hover:border-primary/30 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
                   <FiMessageSquare className="w-5 h-5" />
                 </div>
                 <div>
                   <span className="text-[10px] font-mono text-muted uppercase tracking-widest block mb-1">WhatsApp / Phone</span>
-                  <a href={`https://wa.me/${contactInfo.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:text-[#FF4500] transition-colors">
+                  <a href={`https://wa.me/${contactInfo.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:text-primary transition-colors">
                     {contactInfo.phone}
                   </a>
                 </div>
               </div>
 
               {/* Location */}
-              <div className="p-5 rounded-2xl bg-white border border-border flex items-center gap-4 shadow-sm hover:border-[#FF4500]/30 hover:shadow-md transition-all duration-300">
-                <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-[#FF4500] transition-colors">
+              <div className="p-5 rounded-2xl bg-background border border-border flex items-center gap-4 shadow-sm hover:border-primary/30 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-primary transition-colors">
                   <FiMapPin className="w-5 h-5" />
                 </div>
                 <div>
@@ -213,13 +213,13 @@ export default function Contact() {
             <div className="pt-8 border-t border-border/50">
               <span className="text-xs font-mono uppercase tracking-widest text-muted mb-4 block">Connect Elsewhere</span>
               <div className="flex gap-4">
-                <a href="https://github.com/ProvLeon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3.5 rounded-full bg-white border border-border hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white text-foreground transition-colors shadow-sm">
+                <a href="https://github.com/ProvLeon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3.5 rounded-full bg-background border border-border hover:bg-primary hover:border-primary hover:text-white text-foreground transition-colors shadow-sm">
                   <AiFillGithub className="w-5 h-5" />
                 </a>
-                <a href="https://linkedin.com/in/emmanuellomotey" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3.5 rounded-full bg-white border border-border hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white text-foreground transition-colors shadow-sm">
+                <a href="https://linkedin.com/in/emmanuellomotey" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3.5 rounded-full bg-background border border-border hover:bg-primary hover:border-primary hover:text-white text-foreground transition-colors shadow-sm">
                   <AiFillLinkedin className="w-5 h-5" />
                 </a>
-                <a href="https://instagram.com/lomoteyokantah" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" className="p-3.5 rounded-full bg-white border border-border hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white text-foreground transition-colors shadow-sm">
+                <a href="https://instagram.com/lomoteyokantah" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" className="p-3.5 rounded-full bg-background border border-border hover:bg-primary hover:border-primary hover:text-white text-foreground transition-colors shadow-sm">
                   <AiFillInstagram className="w-5 h-5" />
                 </a>
               </div>
@@ -229,7 +229,7 @@ export default function Contact() {
 
           {/* Contact Form */}
           <div ref={formRef} className="lg:col-span-7 opacity-0">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-8 sm:p-12 rounded-3xl bg-white border border-border shadow-sm">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-8 sm:p-12 rounded-3xl bg-background border border-border shadow-sm">
               <h3 className="text-2xl font-medium text-foreground mb-4">Send an Inquiry</h3>
               <div>
                 <label htmlFor="name" className="text-xs font-mono uppercase tracking-wider text-muted mb-2 block">
@@ -240,7 +240,7 @@ export default function Contact() {
                   id="name"
                   required
                   placeholder="e.g. Sarah Connor"
-                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-[#FF4500] transition-colors font-light text-sm"
+                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-primary transition-colors font-light text-sm"
                 />
               </div>
 
@@ -253,7 +253,7 @@ export default function Contact() {
                   id="email"
                   required
                   placeholder="e.g. sarah@company.com"
-                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-[#FF4500] transition-colors font-light text-sm"
+                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-primary transition-colors font-light text-sm"
                 />
               </div>
 
@@ -266,14 +266,14 @@ export default function Contact() {
                   rows={5}
                   required
                   placeholder="Tell me about your project, timeline, and goals..."
-                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-[#FF4500] transition-colors font-light text-sm resize-none"
+                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-primary transition-colors font-light text-sm resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-6 flex items-center justify-center gap-3 py-4 rounded-xl bg-foreground text-background font-semibold text-xs uppercase tracking-wider hover:bg-[#FF4500] hover:text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-[#FF4500]/20 transition-all duration-300 disabled:opacity-50"
+                className="mt-6 flex items-center justify-center gap-3 py-4 rounded-xl bg-foreground text-background font-semibold text-xs uppercase tracking-wider hover:bg-primary hover:text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20 transition-all duration-300 disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <span>Transmitting Message...</span>

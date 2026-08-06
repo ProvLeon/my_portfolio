@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Hero from "@/components/Hero/Hero";
 import About from "@/components/About";
 
+
 const Journey = dynamic(() => import("@/components/Journey"));
 const Projects = dynamic(() => import("@/components/Projects"));
 const Contact = dynamic(() => import("@/components/Contact"));

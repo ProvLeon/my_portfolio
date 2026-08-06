@@ -32,7 +32,7 @@ export default function Header() {
         {/* Brand / Logo */}
         <Link
           href="/"
-          className="group flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 backdrop-blur-xl border border-border/50 hover:border-foreground/20 hover:bg-white/90 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]"
+          className="group flex items-center gap-3 px-4 py-2 rounded-full bg-background/70 backdrop-blur-xl border border-border hover:border-foreground/20 hover:bg-background/90 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]"
         >
           <div className="w-8 h-8 rounded-full bg-background flex items-center justify-center text-xs font-bold text-foreground border border-border group-hover:scale-105 transition-transform duration-500">
             <FiCommand className="w-3.5 h-3.5 text-foreground" />
@@ -48,12 +48,12 @@ export default function Header() {
         </Link>
 
         {/* Desktop Navigation Pill */}
-        <nav className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 backdrop-blur-xl border border-border/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]">
+        <nav className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-background/70 backdrop-blur-xl border border-border shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]">
           {navItems.map((item) => (
             <a
               key={item.name}
               href={item.path}
-              className="px-4 py-1.5 text-xs font-medium tracking-widest uppercase text-muted hover:text-[#FF4500] hover:bg-[#FF4500]/10 rounded-full transition-all duration-300"
+              className="px-4 py-1.5 text-xs font-medium tracking-widest uppercase text-muted hover:text-primary hover:bg-primary/10 rounded-full transition-all duration-300"
             >
               {item.name}
             </a>
@@ -64,7 +64,7 @@ export default function Header() {
         <div className="hidden lg:flex items-center gap-4">
           <a
             href="#contact"
-            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-foreground/90 backdrop-blur-xl text-background font-semibold text-xs uppercase tracking-widest hover:bg-[#FF4500] hover:text-white hover:scale-105 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.2)]"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-foreground/90 backdrop-blur-xl text-background font-semibold text-xs uppercase tracking-widest hover:bg-primary hover:text-white hover:scale-105 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.2)]"
           >
             <span>Book A Call</span>
             <FiArrowUpRight className="w-4 h-4" />
@@ -74,7 +74,7 @@ export default function Header() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="md:hidden p-3 rounded-full bg-white border border-border text-foreground shadow-sm"
+          className="md:hidden p-3 rounded-full bg-background/80 backdrop-blur-md border border-border text-foreground shadow-sm"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <HiX className="w-5 h-5" /> : <HiMenu className="w-5 h-5" />}
@@ -89,7 +89,7 @@ export default function Header() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden mt-4 mx-4 p-6 rounded-2xl bg-white border border-border flex flex-col gap-4 pointer-events-auto shadow-xl"
+            className="md:hidden mt-4 mx-4 p-6 rounded-2xl bg-background/95 backdrop-blur-xl border border-border flex flex-col gap-4 pointer-events-auto shadow-xl"
           >
             {navItems.map((item) => (
               <a
