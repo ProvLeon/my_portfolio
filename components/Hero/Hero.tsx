@@ -17,40 +17,63 @@ if (typeof window !== "undefined") {
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const clipRectRef = useRef<SVGRectElement>(null);
+  const maskPathRef = useRef<SVGPathElement>(null);
+  const ballRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
   useGSAP(() => {
-    if (!clipRectRef.current) return;
+    if (!maskPathRef.current || !ballRef.current) return;
 
-    // Use a proxy object to independently animate the load phase and the scroll phase
-    const proxy = { loadWidth: 0, scrollProgress: 0 };
+    const maskPath = maskPathRef.current;
+    const length = maskPath.getTotalLength();
+    
+    // Set initial dash state for the mask
+    gsap.set(maskPath, { strokeDasharray: length, strokeDashoffset: length });
 
-    const updateWidth = () => {
-      if (!clipRectRef.current) return;
-      // Load animates 0 -> 900. Scroll animates the remaining 540 (900 to 1440).
-      const currentWidth = proxy.loadWidth + (proxy.scrollProgress * 540);
-      gsap.set(clipRectRef.current, { attr: { width: currentWidth } });
+    // Use a proxy object for the progress (0 to 1)
+    const proxy = { loadProgress: 0, scrollProgress: 0 };
+    
+    const updatePath = () => {
+      if (!maskPathRef.current || !ballRef.current) return;
+      
+      const p = Math.min(1, Math.max(0, proxy.loadProgress + proxy.scrollProgress));
+      const currentLen = p * length;
+      
+      // Update mask (reveals the line)
+      gsap.set(maskPath, { strokeDashoffset: length - currentLen });
+      
+      // Smoothly fade the ball in at the start and out at the end
+      let ballOpacity = 1;
+      if (p <= 0.02) ballOpacity = p / 0.02;
+      else if (p >= 0.98) ballOpacity = (1 - p) / 0.02;
+
+      // Update HTML ball position exactly at the tip
+      const point = maskPath.getPointAtLength(currentLen);
+      gsap.set(ballRef.current, { 
+        left: `${(point.x / 1440) * 100}%`, 
+        top: `${(point.y / 1000) * 100}%`,
+        opacity: ballOpacity
+      });
     };
 
-    // Initialize width
-    updateWidth();
+    // Initialize
+    updatePath();
 
-    // 1. Initial Load: Animate to 900 (hides right behind the portrait)
+    // 1. Initial Load: Animate to progress 0.55 (hides right behind the portrait)
     gsap.to(proxy, {
-      loadWidth: 900,
+      loadProgress: 0.55,
       duration: 2.5,
       ease: "power3.inOut",
       delay: 1.5,
-      onUpdate: updateWidth
+      onUpdate: updatePath
     });
 
-    // 2. Scroll: Animate the rest of the way to 1440
+    // 2. Scroll: Animate the rest of the way (0.45)
     gsap.to(proxy, {
-      scrollProgress: 1,
+      scrollProgress: 0.45,
       ease: "power2.inOut", // Adds a buttery ease to the scroll interpolation
       scrollTrigger: {
         trigger: sectionRef.current,
@@ -58,7 +81,7 @@ export default function Hero() {
         end: "bottom 60%",
         scrub: 1.5, // Increased scrub for smoother follow
       },
-      onUpdate: updateWidth
+      onUpdate: updatePath
     });
   }, { scope: sectionRef });
 
@@ -66,11 +89,17 @@ export default function Hero() {
     <section ref={sectionRef} className="relative min-h-screen w-full flex flex-col justify-center pt-32 pb-20 px-6 sm:px-12 md:px-24">
       
       {/* Narrative Thread Segment 1 */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden lg:block z-0">
-        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block z-0">
+        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none" style={{ overflow: "visible" }}>
           <defs>
             <mask id="hero-mask-load">
-              <rect x="0" y="0" width="0" height="1000" fill="white" ref={clipRectRef} />
+              <path
+                ref={maskPathRef}
+                d="M 0 300 C 500 300, 1300 600, 1300 1000"
+                stroke="white"
+                strokeWidth="40"
+                fill="none"
+              />
             </mask>
           </defs>
           <path
@@ -84,6 +113,16 @@ export default function Hero() {
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
         </svg>
+        
+        {/* Glowing Ball at the Tip */}
+        <div 
+          ref={ballRef}
+          className="absolute w-2.5 h-2.5 bg-primary rounded-full z-10"
+          style={{ 
+            transform: "translate(-50%, -50%)", 
+            boxShadow: "0 0 12px 3px rgba(255,69,0,0.6)" 
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto w-full z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">

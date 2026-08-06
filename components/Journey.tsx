@@ -42,24 +42,52 @@ export default function Journey() {
   const headerRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
-  const clipRectRef = useRef<SVGRectElement>(null);
+  const maskPathRef = useRef<SVGPathElement>(null);
+  const ballRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    if (!sectionRef.current || !clipRectRef.current) return;
+    if (!sectionRef.current || !maskPathRef.current || !ballRef.current) return;
 
-    gsap.fromTo(clipRectRef.current,
-      { attr: { height: 0 } },
-      {
-        attr: { height: 1000 },
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          end: "bottom 70%",
-          scrub: 1,
-        },
-      }
-    );
+    const maskPath = maskPathRef.current;
+    const length = maskPath.getTotalLength();
+    
+    gsap.set(maskPath, { strokeDasharray: length, strokeDashoffset: length });
+
+    const proxy = { progress: 0 };
+    
+    const updatePath = () => {
+      if (!maskPathRef.current || !ballRef.current) return;
+      
+      const p = proxy.progress;
+      const currentLen = p * length;
+      
+      gsap.set(maskPath, { strokeDashoffset: length - currentLen });
+      
+      let ballOpacity = 1;
+      if (p <= 0.02) ballOpacity = p / 0.02;
+      else if (p >= 0.98) ballOpacity = (1 - p) / 0.02;
+
+      const point = maskPath.getPointAtLength(currentLen);
+      gsap.set(ballRef.current, { 
+        left: `${(point.x / 1440) * 100}%`, 
+        top: `${(point.y / 1000) * 100}%`,
+        opacity: ballOpacity
+      });
+    };
+
+    updatePath();
+
+    gsap.to(proxy, {
+      progress: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top 70%",
+        end: "bottom 70%",
+        scrub: 1,
+      },
+      onUpdate: updatePath
+    });
 
     // Header reveal
     gsap.fromTo(
@@ -112,14 +140,22 @@ export default function Journey() {
   }, { scope: sectionRef });
 
   return (
-    <section ref={sectionRef} id="journey" className="py-24 bg-background w-full px-6 sm:px-12 md:px-24 border-t border-border/50 relative overflow-hidden">
+    <section ref={sectionRef} id="journey" className="py-24 bg-background w-full px-6 sm:px-12 md:px-24 border-t border-border/50 relative">
       
       {/* Narrative Thread Segment 3 */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden lg:block z-0">
-        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
-          <clipPath id="journey-clip">
-            <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
-          </clipPath>
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none hidden lg:block z-0">
+        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none" style={{ overflow: "visible" }}>
+          <defs>
+            <mask id="journey-mask">
+              <path
+                ref={maskPathRef}
+                d="M -160 0 C -160 500, 140 500, 140 1000"
+                stroke="white"
+                strokeWidth="40"
+                fill="none"
+              />
+            </mask>
+          </defs>
           <path
             d="M -160 0 C -160 500, 140 500, 140 1000"
             stroke="#FF4500"
@@ -127,10 +163,20 @@ export default function Journey() {
             fill="none"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
-            clipPath="url(#journey-clip)"
+            mask="url(#journey-mask)"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
         </svg>
+
+        {/* Glowing Ball at the Tip */}
+        <div 
+          ref={ballRef}
+          className="absolute w-2.5 h-2.5 bg-primary rounded-full z-10"
+          style={{ 
+            transform: "translate(-50%, -50%)", 
+            boxShadow: "0 0 12px 3px rgba(255,69,0,0.6)" 
+          }}
+        />
       </div>
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 relative z-10">
