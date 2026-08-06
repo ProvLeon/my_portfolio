@@ -90,7 +90,7 @@ export default function Projects() {
             <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
           </clipPath>
           <path
-            d="M 720 0 C 720 333, 960 333, 960 500 C 960 666, 720 666, 720 1000"
+            d="M 140 0 C 140 300, 340 300, 340 500 C 340 700, 140 700, 140 1000"
             stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"

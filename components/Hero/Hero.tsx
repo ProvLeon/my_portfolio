@@ -51,7 +51,7 @@ export default function Hero() {
             <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
           </clipPath>
           <path
-            d="M 200 300 C 400 300, 960 400, 960 600 C 960 800, 720 800, 720 1000"
+            d="M 200 300 C 500 300, 1300 600, 1300 1000"
             stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"

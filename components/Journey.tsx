@@ -121,7 +121,7 @@ export default function Journey() {
             <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
           </clipPath>
           <path
-            d="M 720 0 C 720 333, 480 333, 480 500 C 480 666, 720 666, 720 1000"
+            d="M -160 0 C -160 500, 140 500, 140 1000"
             stroke="#FF4500"
             strokeWidth="2.5"
             fill="none"
