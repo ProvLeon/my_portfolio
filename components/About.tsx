@@ -112,7 +112,7 @@ export default function About() {
               
               <div className="w-full aspect-[4/5] relative rounded-2xl overflow-hidden mt-auto">
                 <Image 
-                  src="/profile-pic2.png" 
+                  src="/profile-pic2.jpg" 
                   alt="Portrait" 
                   fill 
                   className="object-cover grayscale hover:grayscale-0 transition-all duration-500"

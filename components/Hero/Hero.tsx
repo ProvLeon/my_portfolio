@@ -24,21 +24,42 @@ export default function Hero() {
   }, []);
 
   useGSAP(() => {
-    if (!sectionRef.current || !clipRectRef.current) return;
+    if (!clipRectRef.current) return;
 
-    gsap.fromTo(clipRectRef.current,
-      { attr: { height: 0 } },
-      {
-        attr: { height: 1000 },
-        ease: "none",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top 70%",
-          end: "bottom 70%", 
-          scrub: 1,
-        },
-      }
-    );
+    // Use a proxy object to independently animate the load phase and the scroll phase
+    const proxy = { loadWidth: 0, scrollProgress: 0 };
+
+    const updateWidth = () => {
+      if (!clipRectRef.current) return;
+      // Load animates 0 -> 900. Scroll animates the remaining 540 (900 to 1440).
+      const currentWidth = proxy.loadWidth + (proxy.scrollProgress * 540);
+      gsap.set(clipRectRef.current, { attr: { width: currentWidth } });
+    };
+
+    // Initialize width
+    updateWidth();
+
+    // 1. Initial Load: Animate to 900 (hides right behind the portrait)
+    gsap.to(proxy, {
+      loadWidth: 900,
+      duration: 2.5,
+      ease: "power3.inOut",
+      delay: 1.5,
+      onUpdate: updateWidth
+    });
+
+    // 2. Scroll: Animate the rest of the way to 1440
+    gsap.to(proxy, {
+      scrollProgress: 1,
+      ease: "power2.inOut", // Adds a buttery ease to the scroll interpolation
+      scrollTrigger: {
+        trigger: sectionRef.current,
+        start: "top top", // Start immediately when the user begins scrolling
+        end: "bottom 60%",
+        scrub: 1.5, // Increased scrub for smoother follow
+      },
+      onUpdate: updateWidth
+    });
   }, { scope: sectionRef });
 
   return (
@@ -47,17 +68,19 @@ export default function Hero() {
       {/* Narrative Thread Segment 1 */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden lg:block z-0">
         <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
-          <clipPath id="hero-clip">
-            <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
-          </clipPath>
+          <defs>
+            <mask id="hero-mask-load">
+              <rect x="0" y="0" width="0" height="1000" fill="white" ref={clipRectRef} />
+            </mask>
+          </defs>
           <path
-            d="M 200 300 C 500 300, 1300 600, 1300 1000"
+            d="M 0 300 C 500 300, 1300 600, 1300 1000"
             stroke="var(--color-primary)"
             strokeWidth="2.5"
             fill="none"
             strokeLinecap="round"
             vectorEffect="non-scaling-stroke"
-            clipPath="url(#hero-clip)"
+            mask="url(#hero-mask-load)"
             style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
           />
         </svg>
@@ -127,7 +150,7 @@ export default function Hero() {
             alt="Emmanuel Okantah Lomotey" 
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             fill 
-            className="object-cover object-center grayscale hover:grayscale-0 transition-all duration-700"
+            className="object-cover object-top grayscale hover:grayscale-0 transition-all duration-700 -scale-x-100"
             priority
             fetchPriority="high"
           />
