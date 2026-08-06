@@ -1,179 +1,119 @@
 "use client";
-// components/Header.tsx
 
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { logo, navigationLinks, socialLinks } from "@/constants";
 import { useEffect, useState } from "react";
-import { IconType } from "react-icons"; // Add this import
-import { SocialLink } from "@/types";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 import { HiMenu, HiX } from "react-icons/hi";
-import Image from "next/image";
+import { FiArrowUpRight, FiCommand } from "react-icons/fi";
+
+const navItems = [
+  { name: "About", path: "#about" },
+  { name: "Journey", path: "#journey" },
+  { name: "Portfolio", path: "#projects" },
+  { name: "Contact", path: "#contact" },
+];
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Add this state
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuVariants = {
-    closed: {
-      opacity: 0,
-      y: "-100%",
-      transition: { duration: 0.2 },
-    },
-    open: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        staggerChildren: 0.1,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const itemVariants = {
-    closed: { opacity: 0, x: -20 },
-    open: { opacity: 1, x: 0 },
-  };
-
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-30 backdrop-blur-md transition-all duration-200 ${
-        scrolled ? "bg-background/80 shadow-lg" : "bg-background/80"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="flex items-center"
-          >
-            <Link
-              href="/"
-              className="relative group"
-            >
-              <div className="flex items-center">
-                <div className="w-10 h-10 relative">
-                  {/* Logo background */}
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-secondary opacity-20 group-hover:opacity-30 transition-opacity" />
-
-                  {/* Logo text */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-sm font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent whitespace-nowrap">
-                      {logo}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Optional: Full text version for larger screens */}
-                {
-                  /* <div className="hidden ml-3 lg:block">
-                        <span className="text-sm font-medium text-gray-400 group-hover:text-white transition-colors">
-                          Emmanuel Lomotey
-                        </span>
-                      </div> */
-                }
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navigationLinks.map(({ name, path }) => (
-              <motion.div
-                key={name}
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-              >
-                <Link
-                  href={path}
-                  className="text-gray-300 hover:text-white transition-colors relative group"
-                >
-                  {name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
-                </Link>
-              </motion.div>
-            ))}
-          </nav>
-
-          {/* Social Links - Desktop Only */}
-          <div className="flex items-center space-x-4">
-            {socialLinks.map(({ platform, url, icon: Icon }: SocialLink) => (
-              <motion.a
-                key={platform}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                whileHover={{ y: -2, scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                className="text-gray-400 hover:text-white transition-colors cursor-pointer"
-                aria-label={platform}
-              >
-                <Icon className="w-6 h-6" />
-              </motion.a>
-            ))}
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 sm:px-12 py-6 transition-all duration-300 pointer-events-none">
+      <div className="max-w-7xl mx-auto w-full flex items-center justify-between pointer-events-auto">
+        
+        {/* Brand / Logo */}
+        <Link
+          href="/"
+          className="group flex items-center gap-3 px-4 py-2 rounded-full bg-white/70 backdrop-blur-xl border border-border/50 hover:border-foreground/20 hover:bg-white/90 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]"
+        >
+          <div className="w-8 h-8 rounded-full bg-background flex items-center justify-center text-xs font-bold text-foreground border border-border group-hover:scale-105 transition-transform duration-500">
+            <FiCommand className="w-3.5 h-3.5 text-foreground" />
           </div>
+          <div className="flex flex-col">
+            <span className="text-xs font-semibold tracking-widest uppercase text-foreground transition-colors">
+              Emmanuel Lomotey
+            </span>
+            <span className="text-[10px] text-muted font-mono tracking-tight flex items-center gap-1">
+              Lead Product Designer
+            </span>
+          </div>
+        </Link>
 
-          {/* Mobile Menu Button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            className="md:hidden text-gray-300 hover:text-white p-2 cursor-pointer"
-            aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+        {/* Desktop Navigation Pill */}
+        <nav className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full bg-white/70 backdrop-blur-xl border border-border/50 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.1)]">
+          {navItems.map((item) => (
+            <a
+              key={item.name}
+              href={item.path}
+              className="px-4 py-1.5 text-xs font-medium tracking-widest uppercase text-muted hover:text-[#FF4500] hover:bg-[#FF4500]/10 rounded-full transition-all duration-300"
+            >
+              {item.name}
+            </a>
+          ))}
+        </nav>
+
+        {/* CTA */}
+        <div className="hidden lg:flex items-center gap-4">
+          <a
+            href="#contact"
+            className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-foreground/90 backdrop-blur-xl text-background font-semibold text-xs uppercase tracking-widest hover:bg-[#FF4500] hover:text-white hover:scale-105 transition-all duration-500 shadow-[0_4px_24px_-8px_rgba(0,0,0,0.2)]"
           >
-            {isMenuOpen
-              ? <HiX className="w-6 h-6" />
-              : <HiMenu className="w-6 h-6" />}
-          </motion.button>
+            <span>Book A Call</span>
+            <FiArrowUpRight className="w-4 h-4" />
+          </a>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden p-3 rounded-full bg-white border border-border text-foreground shadow-sm"
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? <HiX className="w-5 h-5" /> : <HiMenu className="w-5 h-5" />}
+        </button>
+
       </div>
 
-      {isMenuOpen
-        ? (
+      {/* Mobile Overlay Menu */}
+      <AnimatePresence>
+        {isMenuOpen && (
           <motion.div
-            initial="closed"
-            animate={isMenuOpen ? "open" : "closed"}
-            variants={menuVariants}
-            className="md:hidden fixed top-16 left-0 right-0 bg-background/95 backdrop-blur-md shadow-lg border-t border-gray-800 z-50"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden mt-4 mx-4 p-6 rounded-2xl bg-white border border-border flex flex-col gap-4 pointer-events-auto shadow-xl"
           >
-            <div className="flex flex-col p-4">
-              {navigationLinks.map(({ name, path }) => (
-                <motion.div key={name} variants={itemVariants}>
-                  <Link
-                    href={path}
-                    className="text-gray-300 hover:text-white transition-colors block py-3 px-4 rounded-lg hover:bg-gray-800/50"
-                    onClick={() =>
-                      setIsMenuOpen(false)}
-                  >
-                    {name}
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.path}
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm tracking-widest uppercase font-medium text-muted hover:text-foreground transition-colors py-3 border-b border-border/50"
+              >
+                {item.name}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-4 flex items-center justify-center gap-2 py-4 rounded-xl bg-foreground text-background font-semibold text-xs uppercase tracking-widest"
+            >
+              <span>Book A Call</span>
+              <FiArrowUpRight className="w-4 h-4" />
+            </a>
           </motion.div>
-        )
-        : <></>}
-      {/* Mobile Navigation Menu */}
-    </motion.header>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }
 
-// Separate MobileNav component
-// function MobileNav({ isOpen, setIsOpen }: MobileNavProps) {
 
-//   return (
-
-//   );
-// }

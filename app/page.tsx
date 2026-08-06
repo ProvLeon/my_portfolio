@@ -1,44 +1,27 @@
-// app/page.tsx
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 
 import Hero from "@/components/Hero/Hero";
-import Projects from "@/components/Projects";
-import Technologies from "@/components/Technologies";
-import Timeline from "@/components/TimeLine";
-import Accomplishments from "@/components/Accomplishments";
-import Contact from "@/components/Contact";
+import About from "@/components/About";
+
+const Journey = dynamic(() => import("@/components/Journey"));
+const Projects = dynamic(() => import("@/components/Projects"));
+const Contact = dynamic(() => import("@/components/Contact"));
 
 export const metadata: Metadata = {
-  title: "Emmanuel Okantah Lomotey | Portfolio",
-  description: "Full Stack Developer Portfolio",
+  title: "Emmanuel Okantah Lomotey | Lead Product Designer & Engineer",
+  description: "Senior Product Designer & Engineer specializing in high-end web experiences, system architecture, and production UI/UX.",
 };
 
 export default function Home() {
   return (
-    <main className="mx-auto w-full">
-      <section id="hero" className="w-full">
-        <Hero />
-      </section>
-
-      <section id="projects" className="w-full">
-        <Projects />
-      </section>
-
-      <section id="technologies" className="w-full">
-        <Technologies />
-      </section>
-
-      <section id="timeline" className="w-full">
-        <Timeline />
-      </section>
-
-      <section id="accomplishments" className="w-full">
-        <Accomplishments />
-      </section>
-
-      <section id="contact" className="w-full">
-        <Contact />
-      </section>
+    <main className="mx-auto w-full relative z-10">
+      <Hero />
+      <About />
+      <Journey />
+      <Projects />
+      <Contact />
     </main>
   );
 }
+

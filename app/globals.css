@@ -1,13 +1,28 @@
 @import "tailwindcss";
 
 @theme {
-  --color-background: #050505;
-  --color-foreground: #ffffff;
-  --color-muted: #888888;
-  --color-border: #222222;
+  --color-background: var(--bg);
+  --color-foreground: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-primary: #FF4500;
 }
 
 @layer base {
+  :root {
+    --bg: #F9F9F9;
+    --fg: #111111;
+    --muted: #71717A;
+    --border: #E4E4E7;
+  }
+
+  .dark {
+    --bg: #09090b;
+    --fg: #fafafa;
+    --muted: #a1a1aa;
+    --border: #27272a;
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
@@ -19,26 +34,96 @@
     color: var(--color-foreground);
     cursor: none;
     overflow-x: hidden;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 
   ::selection {
-    background-color: var(--color-foreground);
-    color: var(--color-background);
+    background-color: rgba(255, 69, 0, 0.15);
+    color: #FF4500;
   }
+
+  /* Branded Focus Ring for Keyboard Navigation */
+  *:focus-visible {
+    outline: 2px solid #FF4500;
+    outline-offset: 3px;
+  }
+}
+
+/* Light Mode Glassmorphism Utilities */
+.glass-card {
+  background: var(--color-background);
+  opacity: 0.8;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.dark .glass-card {
+  background: rgba(9, 9, 11, 0.7);
+}
+
+.glass-card-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  background: var(--color-background);
+  opacity: 1;
+  border-color: rgba(113, 113, 122, 0.3);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.dark .glass-card-hover:hover {
+  background: rgba(24, 24, 27, 0.9);
+}
+
+.glass-pill {
+  background: var(--color-background);
+  opacity: 0.8;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+.dark .glass-pill {
+  background: rgba(9, 9, 11, 0.8);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 4px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--color-background);
 }
+
 ::-webkit-scrollbar-thumb {
-  background: var(--color-border);
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 9999px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-muted);
+  background: rgba(0, 0, 0, 0.3);
 }
+
+/* Animations & Keyframes */
+@keyframes slide-down {
+  0% { transform: translateY(-100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.02); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+
 
 

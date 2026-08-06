@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 
 export default function Cursor() {
+  const [cursorText, setCursorText] = useState("");
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
@@ -20,15 +21,22 @@ export default function Cursor() {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      if (
+      const cursorTarget = target.closest("[data-cursor-text]") as HTMLElement;
+      
+      if (cursorTarget) {
+        setCursorText(cursorTarget.getAttribute("data-cursor-text") || "");
+        setIsHovering(true);
+      } else if (
         target.tagName.toLowerCase() === "a" ||
         target.tagName.toLowerCase() === "button" ||
         target.closest("a") ||
         target.closest("button") ||
         window.getComputedStyle(target).cursor === "pointer"
       ) {
+        setCursorText("");
         setIsHovering(true);
       } else {
+        setCursorText("");
         setIsHovering(false);
       }
     };
@@ -43,16 +51,12 @@ export default function Cursor() {
 
     let animationFrameId: number;
     const animate = () => {
-      // Very high ease for almost instant follow, 
-      // but still smooth enough to feel like a custom cursor
-      const ease = 0.4;
-      
-      positionRef.current.x += (targetRef.current.x - positionRef.current.x) * ease;
-      positionRef.current.y += (targetRef.current.y - positionRef.current.y) * ease;
+      // Direct 1:1 mapping with no easing/lag
+      positionRef.current.x = targetRef.current.x;
+      positionRef.current.y = targetRef.current.y;
 
       if (cursorRef.current) {
-        // Center the dot (width is 16px, so offset by 8px)
-        cursorRef.current.style.transform = `translate3d(${positionRef.current.x - 8}px, ${positionRef.current.y - 8}px, 0)`;
+        cursorRef.current.style.transform = `translate3d(${positionRef.current.x}px, ${positionRef.current.y}px, 0) translate(-50%, -50%)`;
       }
 
       animationFrameId = requestAnimationFrame(animate);
@@ -73,14 +77,22 @@ export default function Cursor() {
     <>
       <div
         ref={cursorRef}
-        className="fixed top-0 left-0 w-4 h-4 pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center"
         style={{ willChange: "transform" }}
       >
         <div
-          className={`bg-white rounded-full transition-all duration-300 ease-out ${
-            isHovering ? "w-12 h-12 opacity-50" : "w-2 h-2 opacity-100"
+          className={`flex items-center justify-center rounded-full transition-all duration-300 ease-out ${
+            cursorText
+              ? "w-20 h-20 bg-[#FF4500] text-white font-bold text-[10px] tracking-widest uppercase shadow-xl shadow-[#FF4500]/30"
+              : isHovering
+              ? "w-12 h-12 bg-[#FF4500]/10 backdrop-blur-md border border-[#FF4500]/40 shadow-lg shadow-[#FF4500]/20"
+              : "w-2.5 h-2.5 bg-[#FF4500] shadow-sm shadow-[#FF4500]/40"
           }`}
-        />
+        >
+          {cursorText && (
+            <span className="animate-pulse">{cursorText}</span>
+          )}
+        </div>
       </div>
 
       <style jsx global>{`
@@ -91,3 +103,4 @@ export default function Cursor() {
     </>
   );
 }
+

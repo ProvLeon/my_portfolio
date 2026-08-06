@@ -6,26 +6,27 @@ const inter = Inter({ subsets: ["latin"] });
 import ScrollIndicator from "@/components/ScrollIndicator";
 import { Analytics } from "@vercel/analytics/react";
 
+import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import PageTransition from "@/components/PageTransition";
 import SmoothScroll from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
-import WebGLCanvas from "@/components/WebGL/WebGLCanvas";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const viewport: Viewport = {
-  themeColor: "#3B82F6",
+  themeColor: "#ffffff",
   width: "device-width",
   initialScale: 1,
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://okantah.netlify.app"),
-  title: "Emmanuel Okantah Lomotey | Portfolio",
-  description: "Full Stack Developer Portfolio",
+  title: "Emmanuel Okantah Lomotey | Lead Product Designer & Engineer",
+  description: "Senior Product Designer & Engineer specializing in high-end web experiences, system architecture, and production UI/UX.",
   openGraph: {
-    title: "Emmanuel Okantah Lomotey | Portfolio",
-    description: "Full Stack Developer Portfolio",
+    title: "Emmanuel Okantah Lomotey | Lead Product Designer & Engineer",
+    description: "Specializing in premium editorial design, system architecture, and production UI/UX.",
     url: "https://okantah.netlify.app",
     siteName: "Okantah Portfolio",
     images: [
@@ -35,20 +36,14 @@ export const metadata: Metadata = {
         height: 800,
         alt: "Emmanuel Okantah Lomotey profile",
       },
-      {
-        url: "/images/blumen.png",
-        width: 1200,
-        height: 630,
-        alt: "Featured project preview",
-      },
     ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Emmanuel Okantah Lomotey | Portfolio",
-    description: "Full Stack Developer Portfolio",
+    title: "Emmanuel Okantah Lomotey | Lead Product Designer",
+    description: "Specializing in premium editorial design, system architecture, and production UI/UX.",
     images: ["/profile-pic2.png"],
   },
   icons: {
@@ -73,24 +68,27 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`scroll-smooth ${inter.className}`} suppressHydrationWarning>
-      <body suppressHydrationWarning className="antialiased relative bg-black selection:bg-white selection:text-black text-white">
-        
-        {/* Global UI Elements */}
-        <WebGLCanvas />
-        <ScrollIndicator />
-        <Cursor />
+      <body suppressHydrationWarning className="antialiased relative bg-background text-foreground selection:bg-[#FF4500]/20 selection:text-[#FF4500] transition-colors duration-300">
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {/* Global UI Elements */}
+          <ScrollIndicator />
+          <Cursor />
+        <Header />
 
         {/* Main Content with Transition */}
         <SmoothScroll>
           <PageTransition>
-            <div className="relative z-0">{children}</div>
+            <div className="relative z-10">{children}</div>
           </PageTransition>
         </SmoothScroll>
 
         <Footer />
-        <ScrollToTop />
-        <Analytics />
+          <ScrollToTop />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   );
 }
+
+

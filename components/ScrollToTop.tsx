@@ -44,9 +44,9 @@ export default function ScrollToTop() {
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
           className="fixed bottom-8 right-8 z-50 p-3 rounded-full
-                     bg-gradient-to-r from-primary to-secondary
-                     text-white shadow-lg shadow-primary/20
-                     hover:shadow-xl hover:shadow-primary/30
+                     bg-white
+                     text-black shadow-lg shadow-white/20
+                     hover:shadow-xl hover:shadow-white/30
                      transition-all duration-300
                      backdrop-blur-sm"
         >
@@ -56,7 +56,7 @@ export default function ScrollToTop() {
 
             {/* Glow Effect */}
             <motion.div
-              className="absolute inset-0 rounded-full bg-white/20"
+              className="absolute inset-0 rounded-full bg-black/10"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.5, 0, 0.5],
@@ -70,7 +70,7 @@ export default function ScrollToTop() {
 
             {/* Ripple Effect */}
             <motion.div
-              className="absolute -inset-2 rounded-full border-2 border-primary/30"
+              className="absolute -inset-2 rounded-full border-2 border-white/30"
               animate={{
                 scale: [1, 1.5],
                 opacity: [0.3, 0],
@@ -88,7 +88,7 @@ export default function ScrollToTop() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             className="absolute -top-8 -left-5 -translate-x-1/2
-                       text-sm text-gray-400 bg-gray-900/80
+                       text-sm text-[#a3a3a3] bg-[#0a0a0a]/80
                        px-2 py-1 rounded-md whitespace-nowrap
                        backdrop-blur-sm"
           >
@@ -148,7 +148,7 @@ export function ScrollToTopWithProgress() {
               strokeWidth="2"
               stroke="currentColor"
               fill="none"
-              className="text-gray-700"
+              className="text-[#525252]"
             />
             <motion.circle
               cx="24"
@@ -159,7 +159,7 @@ export function ScrollToTopWithProgress() {
               fill="none"
               strokeDasharray="126.92"
               strokeDashoffset={126.92 - (progress * 126.92) / 100}
-              className="text-primary"
+              className="text-white"
             />
           </svg>
 
@@ -181,7 +181,7 @@ export function ScrollToTopWithProgress() {
 
           {/* Hover Effect */}
           <motion.div
-            className="absolute inset-0 rounded-full bg-gradient-to-r from-primary to-secondary opacity-0 transition-opacity"
+            className="absolute inset-0 rounded-full bg-white opacity-0 transition-opacity"
             whileHover={{ opacity: 0.2 }}
           />
         </motion.button>

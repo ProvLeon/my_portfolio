@@ -1,84 +1,301 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { FiMail, FiPhone, FiMapPin, FiCopy, FiCheck, FiSend, FiMessageSquare } from "react-icons/fi";
+import { AiFillGithub, AiFillLinkedin, AiFillInstagram } from "react-icons/ai";
+import { contactInfo } from "@/constants";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const detailsRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
+  const threadRef = useRef<SVGPathElement>(null);
+  const arrowheadRef = useRef<SVGCircleElement>(null);
+  const clipRectRef = useRef<SVGRectElement>(null);
+
+  useGSAP(() => {
+    if (!sectionRef.current || !clipRectRef.current) return;
+
+    gsap.fromTo(clipRectRef.current,
+      { attr: { height: 0 } },
+      {
+        attr: { height: 1000 },
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 70%",
+          end: "bottom bottom",
+          scrub: 1,
+          onUpdate: (self) => {
+            if (arrowheadRef.current) {
+               gsap.set(arrowheadRef.current, { opacity: self.progress > 0.98 ? 1 : 0 });
+            }
+          }
+        },
+      }
+    );
+
+    // Header reveal
+    gsap.fromTo(
+      headerRef.current,
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+      }
+    );
+
+    // Left Column (Details) reveal
+    gsap.fromTo(
+      detailsRef.current,
+      { opacity: 0, x: -30 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        delay: 0.1,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+      }
+    );
+
+    // Right Column (Form) reveal
+    gsap.fromTo(
+      formRef.current,
+      { opacity: 0, x: 30 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.8,
+        delay: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 75%",
+        },
+      }
+    );
+
+  }, { scope: sectionRef });
+
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(contactInfo.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => setIsSubmitting(false), 2000);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 5000);
+    }, 1500);
   };
 
   return (
-    <section id="contact" className="py-48 relative text-white px-12 md:px-24">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-24">
+    <section ref={sectionRef} id="contact" className="py-24 md:py-32 bg-background w-full px-6 sm:px-12 md:px-24 relative overflow-hidden">
+      
+      {/* Narrative Thread Segment 5 */}
+      <div className="absolute top-0 left-0 w-full h-full pointer-events-none overflow-hidden hidden lg:block z-0">
+        <svg width="100%" height="100%" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+          <clipPath id="contact-clip">
+            <rect x="0" y="0" width="1440" height="0" ref={clipRectRef} />
+          </clipPath>
+          <path
+            d="M 720 0 C 720 333, 480 333, 480 500 C 480 700, 720 800, 720 994"
+            stroke="#FF4500"
+            strokeWidth="2.5"
+            fill="none"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+            clipPath="url(#contact-clip)"
+            style={{ filter: "drop-shadow(0px 0px 8px rgba(255,69,0,0.5))" }}
+          />
+          <circle cx="720" cy="994" r="6" fill="#FF4500" ref={arrowheadRef} className="opacity-0 drop-shadow-[0_0_10px_rgba(255,69,0,1)]" />
+        </svg>
+      </div>
+
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         
-        <div className="md:w-1/2">
-          <h2 className="text-[4rem] md:text-[6rem] font-medium tracking-tight leading-[0.9] mb-8">
-            Let's <br />
-            <span className="text-white/50 italic font-light">Collaborate</span>
+        {/* Banner Title */}
+        <div ref={headerRef} className="mb-16 md:mb-24 flex flex-col items-center text-center opacity-0">
+          <div className="flex items-center gap-3 text-foreground font-medium text-sm mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-foreground"></span>
+            Let's Collaborate
+          </div>
+          <h2 className="text-4xl sm:text-6xl lg:text-7xl font-medium tracking-tighter text-foreground leading-[1.1] mb-6 max-w-4xl">
+            Ready to architect your next digital product?
           </h2>
-          <p className="text-lg text-white/50 font-light max-w-sm mb-12">
-            Open for new opportunities, exciting projects, and creative collaborations.
+          <p className="text-base sm:text-lg text-muted font-light max-w-2xl">
+            Available for full-stack engineering contracts, strategic architecture reviews, and high-impact advisory roles worldwide.
           </p>
-          <a href="mailto:hello@example.com" className="text-sm tracking-widest uppercase text-white/80 hover:text-white transition-colors duration-500 border-b border-white/20 pb-2 cursor-none">
-            hello@okantah.com
-          </a>
         </div>
 
-        <div className="md:w-1/2">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-12">
-            <div className="group relative">
-              <label htmlFor="name" className="text-xs tracking-widest uppercase text-white/40 absolute -top-6 left-0 transition-all duration-300 group-focus-within:text-white/80 group-focus-within:-translate-y-2">
-                Name
-              </label>
-              <input 
-                type="text" 
-                id="name"
-                required
-                className="w-full bg-transparent border-b border-white/20 pb-4 text-xl font-light text-white outline-none focus:border-white/80 transition-colors duration-500 cursor-none" 
-              />
-            </div>
-            
-            <div className="group relative mt-6">
-              <label htmlFor="email" className="text-xs tracking-widest uppercase text-white/40 absolute -top-6 left-0 transition-all duration-300 group-focus-within:text-white/80 group-focus-within:-translate-y-2">
-                Email
-              </label>
-              <input 
-                type="email" 
-                id="email"
-                required
-                className="w-full bg-transparent border-b border-white/20 pb-4 text-xl font-light text-white outline-none focus:border-white/80 transition-colors duration-500 cursor-none" 
-              />
-            </div>
-
-            <div className="group relative mt-6">
-              <label htmlFor="message" className="text-xs tracking-widest uppercase text-white/40 absolute -top-6 left-0 transition-all duration-300 group-focus-within:text-white/80 group-focus-within:-translate-y-2">
-                Message
-              </label>
-              <textarea 
-                id="message"
-                rows={4}
-                required
-                className="w-full bg-transparent border-b border-white/20 pb-4 text-xl font-light text-white outline-none focus:border-white/80 transition-colors duration-500 resize-none cursor-none" 
-              />
-            </div>
-
-            <button 
-              type="submit" 
-              className="self-start mt-8 text-sm tracking-widest uppercase text-white/80 hover:text-white transition-colors duration-500 flex items-center gap-4 group cursor-none"
-            >
-              <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
-              <div className="w-12 h-[1px] bg-white/40 group-hover:bg-white transition-colors duration-500 relative overflow-hidden">
-                <div className="absolute inset-0 bg-white -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out" />
+        {/* Contact Form & Direct Information */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
+          
+          {/* Direct Details */}
+          <div ref={detailsRef} className="lg:col-span-5 flex flex-col justify-between space-y-8 opacity-0">
+            <div>
+              <h3 className="text-xl font-medium text-foreground mb-8">Direct Channels</h3>
+              
+              {/* Email Box */}
+              <div className="p-5 rounded-2xl bg-white border border-border mb-4 flex items-center justify-between shadow-sm hover:border-[#FF4500]/30 hover:shadow-md transition-all duration-300">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-[#FF4500] transition-colors">
+                    <FiMail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-mono text-muted uppercase tracking-widest block mb-1">Email</span>
+                    <a href={`mailto:${contactInfo.email}`} className="text-sm font-medium text-foreground hover:text-[#FF4500] transition-colors">
+                      {contactInfo.email}
+                    </a>
+                  </div>
+                </div>
+                <button
+                  onClick={handleCopyEmail}
+                  className="p-3 rounded-full bg-background hover:bg-[#FF4500]/10 hover:text-[#FF4500] text-foreground transition-colors border border-border"
+                  aria-label="Copy Email"
+                >
+                  {copied ? <FiCheck className="w-4 h-4 text-green-500" /> : <FiCopy className="w-4 h-4" />}
+                </button>
               </div>
-            </button>
-          </form>
+
+              {/* Phone & WhatsApp */}
+              <div className="p-5 rounded-2xl bg-white border border-border mb-4 flex items-center gap-4 shadow-sm hover:border-[#FF4500]/30 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-[#FF4500] transition-colors">
+                  <FiMessageSquare className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-muted uppercase tracking-widest block mb-1">WhatsApp / Phone</span>
+                  <a href={`https://wa.me/${contactInfo.whatsapp}`} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-foreground hover:text-[#FF4500] transition-colors">
+                    {contactInfo.phone}
+                  </a>
+                </div>
+              </div>
+
+              {/* Location */}
+              <div className="p-5 rounded-2xl bg-white border border-border flex items-center gap-4 shadow-sm hover:border-[#FF4500]/30 hover:shadow-md transition-all duration-300">
+                <div className="w-12 h-12 rounded-full bg-background border border-border flex items-center justify-center text-foreground group-hover:text-[#FF4500] transition-colors">
+                  <FiMapPin className="w-5 h-5" />
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono text-muted uppercase tracking-widest block mb-1">Location</span>
+                  <span className="text-sm font-medium text-foreground">{contactInfo.location}, Ghana</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="pt-8 border-t border-border/50">
+              <span className="text-xs font-mono uppercase tracking-widest text-muted mb-4 block">Connect Elsewhere</span>
+              <div className="flex gap-4">
+                <a href="https://github.com/ProvLeon" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" className="p-3.5 rounded-full bg-white border border-border hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white text-foreground transition-colors shadow-sm">
+                  <AiFillGithub className="w-5 h-5" />
+                </a>
+                <a href="https://linkedin.com/in/emmanuellomotey" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" className="p-3.5 rounded-full bg-white border border-border hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white text-foreground transition-colors shadow-sm">
+                  <AiFillLinkedin className="w-5 h-5" />
+                </a>
+                <a href="https://instagram.com/lomoteyokantah" target="_blank" rel="noopener noreferrer" aria-label="Instagram Profile" className="p-3.5 rounded-full bg-white border border-border hover:bg-[#FF4500] hover:border-[#FF4500] hover:text-white text-foreground transition-colors shadow-sm">
+                  <AiFillInstagram className="w-5 h-5" />
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Contact Form */}
+          <div ref={formRef} className="lg:col-span-7 opacity-0">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6 p-8 sm:p-12 rounded-3xl bg-white border border-border shadow-sm">
+              <h3 className="text-2xl font-medium text-foreground mb-4">Send an Inquiry</h3>
+              <div>
+                <label htmlFor="name" className="text-xs font-mono uppercase tracking-wider text-muted mb-2 block">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  placeholder="e.g. Sarah Connor"
+                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-[#FF4500] transition-colors font-light text-sm"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="text-xs font-mono uppercase tracking-wider text-muted mb-2 block">
+                  Your Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  placeholder="e.g. sarah@company.com"
+                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-[#FF4500] transition-colors font-light text-sm"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="message" className="text-xs font-mono uppercase tracking-wider text-muted mb-2 block">
+                  Project Details
+                </label>
+                <textarea
+                  id="message"
+                  rows={5}
+                  required
+                  placeholder="Tell me about your project, timeline, and goals..."
+                  className="w-full px-5 py-4 rounded-xl bg-background border border-border text-foreground placeholder-muted focus:outline-none focus:border-[#FF4500] transition-colors font-light text-sm resize-none"
+                />
+              </div>
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="mt-6 flex items-center justify-center gap-3 py-4 rounded-xl bg-foreground text-background font-semibold text-xs uppercase tracking-wider hover:bg-[#FF4500] hover:text-white hover:scale-[1.02] hover:shadow-lg hover:shadow-[#FF4500]/20 transition-all duration-300 disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <span>Transmitting Message...</span>
+                ) : submitted ? (
+                  <span className="flex items-center gap-2">
+                    <FiCheck className="w-4 h-4" /> Message Sent Successfully!
+                  </span>
+                ) : (
+                  <>
+                    <span>Send Inquiry</span>
+                    <FiSend className="w-4 h-4" />
+                  </>
+                )}
+              </button>
+
+            </form>
+          </div>
+
         </div>
 
       </div>
     </section>
   );
 }
+
